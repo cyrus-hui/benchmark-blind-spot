@@ -1,0 +1,26 @@
+[task 8] config=configs/pilot_gpt2m.yaml gen=7 seed=43
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/292 [00:00<00:03, 79.42it/s]Loading weights:  10%|▉         | 29/292 [00:00<00:02, 88.06it/s]Loading weights:  19%|█▉        | 55/292 [00:00<00:02, 107.16it/s]Loading weights:  23%|██▎       | 66/292 [00:01<00:04, 50.42it/s] Loading weights:  25%|██▌       | 74/292 [00:01<00:04, 43.94it/s]Loading weights:  54%|█████▍    | 157/292 [00:01<00:00, 143.06it/s]Loading weights:  61%|██████    | 178/292 [00:01<00:00, 127.33it/s]Loading weights:  71%|███████   | 207/292 [00:01<00:00, 132.39it/s]Loading weights:  78%|███████▊  | 228/292 [00:02<00:00, 131.92it/s]Loading weights:  84%|████████▎ | 244/292 [00:02<00:00, 130.67it/s]Loading weights:  89%|████████▊ | 259/292 [00:02<00:00, 103.58it/s]Loading weights: 100%|██████████| 292/292 [00:02<00:00, 114.06it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+  PPL check: new 30.892466 vs stored 30.892466 (delta +0.000000)
+perplexity_ood_c4 (2000 chunks)...
+  PPL check: new 53.817651 vs stored 53.817651 (delta +0.000000)
+perplexity_ood_ccnews (2000 chunks)...
+  PPL check: new 36.422016 vs stored 36.422016 (delta +0.000000)
+perplexity_ood_wiki (2000 chunks)...
+  PPL check: new 34.579595 vs stored 34.579595 (delta +0.000000)
+{
+  "perplexity": 30.892466330580202,
+  "entropy": 2.5239018280186745,
+  "top1_prob": 0.4732622084645609,
+  "perplexity_ood_c4": 53.81765116863434,
+  "entropy_ood_c4": 2.974783217486497,
+  "top1_prob_ood_c4": 0.40273670792248173,
+  "perplexity_ood_ccnews": 36.42201556385087,
+  "entropy_ood_ccnews": 2.726941537473177,
+  "top1_prob_ood_ccnews": 0.43258357288146826,
+  "perplexity_ood_wiki": 34.57959506060483,
+  "entropy_ood_wiki": 2.610064294108678,
+  "top1_prob_ood_wiki": 0.46252207458696887
+}

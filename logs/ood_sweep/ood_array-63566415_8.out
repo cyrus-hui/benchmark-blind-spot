@@ -1,0 +1,12 @@
+[task 8] config=configs/pilot_gpt2m.yaml gen=7 seed=43
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   3%|▎         | 9/292 [00:00<00:03, 76.33it/s]Loading weights:   6%|▌         | 17/292 [00:00<00:05, 54.53it/s]Loading weights:   8%|▊         | 23/292 [00:00<00:04, 55.74it/s]Loading weights:  12%|█▏        | 35/292 [00:00<00:06, 37.05it/s]Loading weights:  25%|██▍       | 72/292 [00:00<00:02, 87.52it/s]Loading weights:  32%|███▏      | 92/292 [00:01<00:02, 90.76it/s]Loading weights:  38%|███▊      | 111/292 [00:01<00:01, 99.35it/s]Loading weights:  42%|████▏     | 123/292 [00:01<00:01, 93.37it/s]Loading weights:  49%|████▉     | 143/292 [00:01<00:01, 112.03it/s]Loading weights:  55%|█████▌    | 161/292 [00:01<00:01, 119.35it/s]Loading weights:  65%|██████▌   | 190/292 [00:01<00:00, 156.24it/s]Loading weights:  71%|███████   | 208/292 [00:02<00:00, 138.29it/s]Loading weights:  77%|███████▋  | 224/292 [00:02<00:00, 126.04it/s]Loading weights:  82%|████████▏ | 238/292 [00:02<00:00, 111.52it/s]Loading weights:  88%|████████▊ | 257/292 [00:02<00:00, 127.19it/s]Loading weights:  93%|█████████▎| 273/292 [00:02<00:00, 133.29it/s]Loading weights:  99%|█████████▊| 288/292 [00:02<00:00, 110.46it/s]Loading weights: 100%|██████████| 292/292 [00:02<00:00, 105.59it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+perplexity_ood_c4 (2000 chunks)...
+perplexity_ood_ccnews (2000 chunks)...
+{
+  "perplexity": 30.892466330580202,
+  "perplexity_ood_c4": 53.81765116863434,
+  "perplexity_ood_ccnews": 36.42201556385087
+}

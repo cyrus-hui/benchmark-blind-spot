@@ -1,0 +1,13 @@
+[task 36] config=configs/smollm2_1.7b.yaml gen=3 seed=43
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:   2%|▏         | 5/218 [00:10<07:31,  2.12s/it]Loading weights:   9%|▉         | 20/218 [00:13<01:55,  1.72it/s]Loading weights:  42%|████▏     | 92/218 [00:14<00:11, 11.05it/s]Loading weights:  73%|███████▎  | 159/218 [00:14<00:02, 23.06it/s]Loading weights: 100%|██████████| 218/218 [00:14<00:00, 15.32it/s]
+perplexity (2213 chunks)...
+perplexity_ood_c4 (2000 chunks)...
+perplexity_ood_ccnews (2000 chunks)...
+perplexity_ood_wiki (2000 chunks)...
+{
+  "perplexity": 12.932228057314743,
+  "perplexity_ood_c4": 24.651148808614536,
+  "perplexity_ood_ccnews": 19.339306140284908,
+  "perplexity_ood_wiki": 14.514626519730912
+}

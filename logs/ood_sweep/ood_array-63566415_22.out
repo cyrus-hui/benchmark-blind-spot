@@ -1,0 +1,12 @@
+[task 22] config=configs/pilot_gpt2m.yaml gen=5 seed=45
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   8%|▊         | 22/292 [00:00<00:01, 138.12it/s]Loading weights:  12%|█▏        | 36/292 [00:00<00:02, 89.29it/s] Loading weights:  22%|██▏       | 63/292 [00:00<00:01, 139.88it/s]Loading weights:  27%|██▋       | 80/292 [00:00<00:01, 132.80it/s]Loading weights:  37%|███▋      | 108/292 [00:00<00:01, 170.72it/s]Loading weights:  50%|█████     | 147/292 [00:00<00:00, 183.72it/s]Loading weights:  58%|█████▊    | 169/292 [00:01<00:00, 182.77it/s]Loading weights:  64%|██████▍   | 188/292 [00:01<00:00, 176.34it/s]Loading weights:  71%|███████   | 206/292 [00:01<00:00, 136.88it/s]Loading weights:  76%|███████▌  | 221/292 [00:01<00:00, 131.16it/s]Loading weights:  85%|████████▍ | 248/292 [00:02<00:00, 77.53it/s] Loading weights:  89%|████████▉ | 260/292 [00:02<00:00, 60.65it/s]Loading weights:  92%|█████████▏| 269/292 [00:02<00:00, 56.15it/s]Loading weights: 100%|██████████| 292/292 [00:02<00:00, 108.17it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+perplexity_ood_c4 (2000 chunks)...
+perplexity_ood_ccnews (2000 chunks)...
+{
+  "perplexity": 29.947994656615453,
+  "perplexity_ood_c4": 53.47698712568798,
+  "perplexity_ood_ccnews": 36.13850226167261
+}

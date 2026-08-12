@@ -1,0 +1,50 @@
+# Main configuration — SmolLM2-1.7B on WikiText-2
+# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+# Matches pilot_gpt2m.yaml exactly except where noted — differences are justified below
+
+run_name: smollm2_1.7b
+seed: 43                          # Phase 3 main seeds: 43–47
+
+model:
+  base_name: HuggingFaceTB/SmolLM2-1.7B
+  use_lora: false                 # full FT — matches GPT-2 Medium; avoids expressivity confound
+  lora_r: 16                      # unused (use_lora: false); kept for config symmetry
+  lora_alpha: 32                  # unused (use_lora: false); kept for config symmetry
+
+data:
+  dataset_name: Salesforce/wikitext
+  dataset_config: wikitext-2-raw-v1
+  block_size: 128                 # UNCHANGED from GPT-2 — comparability requires identical
+                                  # training chunk size even though SmolLM2 supports longer ctx
+  prompt_len: 32                  # UNCHANGED — same prefix length for generation
+decoding:                         # MAIN CONDITION — identical to GPT-2 config
+  strategy: top_k
+  top_k: 50
+  top_p: null                     # set 0.95 + strategy: nucleus for nucleus ablation
+  temperature: 1.0
+  max_new_tokens: 96              # block_size - prompt_len; UNCHANGED
+
+training:
+  num_epochs: 3                   # UNCHANGED — same collapse pressure per generation
+  learning_rate: 2.0e-5           # REDUCED from 5e-5 (GPT-2) — standard downward scaling
+                                  # for larger models; 5e-5 risks destabilising early gens
+  per_device_batch_size: 16      # UNCHANGED — A100 has headroom; maintains effective batch size
+  gradient_accumulation: 2        # UNCHANGED — effective batch = 32, matches GPT-2
+  warmup_ratio: 0.03              # UNCHANGED
+  bf16: true                      # UNCHANGED — SmolLM2 released in bf16
+
+eval:
+  n_eval_prompts: 1000            # UNCHANGED — same fixed prompt set size
+  eval_max_new_tokens: 96         # UNCHANGED
+  mauve_n_eval_prompts: 2000      # INCREASED from 1000 — fixes GMM clustering warning;
+                                  # target: MAUVE significance at 1.7B scale
+  sbert_model: sentence-transformers/all-MiniLM-L6-v2
+  mauve_featurizer: gpt2-large    # UNCHANGED — must be pre-cached on Narval
+  # Note: benchmark tasks and fewshot are driven by run_generation sbatch directly,
+  # not by this config. Fields below are documentation only.
+  benchmarks: "hellaswag,lambada_openai,arc_easy,mmlu"
+  benchmark_fewshot: 0            # 0-shot for hellaswag/lambada/arc_easy; mmlu uses 5-shot
+                                  # (overridden in sbatch via separate lm-eval call)
+
+paths:                            # all under $SCRATCH on Narval; resolved at runtime
+  workdir: ${SCRATCH}/collapse    # corpora, models, results live here

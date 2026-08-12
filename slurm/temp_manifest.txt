@@ -1,0 +1,12 @@
+configs/pilot_gpt2m.yaml 7 43
+configs/pilot_gpt2m.yaml 7 44
+configs/pilot_gpt2m.yaml 7 45
+configs/pilot_gpt2m.yaml 7 46
+configs/gpt2m_greedy.yaml 7 43
+configs/gpt2m_greedy.yaml 7 44
+configs/gpt2m_greedy.yaml 7 45
+configs/smollm2_1.7b.yaml 7 43
+configs/smollm2_1.7b.yaml 7 44
+configs/smollm2_1.7b.yaml 7 45
+configs/smollm2_1.7b.yaml 7 46
+configs/smollm2_1.7b.yaml 7 47

@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --account=def-enaskt_gpu
+#SBATCH --gpus-per-node=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=24G
+#SBATCH --time=1:00:00
+#SBATCH --output=logs/misc/%x-%j.out
+# usage: sbatch slurm/score_ood_ppl.sbatch <CONFIG> <GEN> <SEED>
+set -euo pipefail
+source ~/modelcollapse/scripts/narval_env.sh
+CONFIG="$1"; GEN="$2"; SEED="$3"
+python ~/modelcollapse/src/score_ood_ppl.py --config "$CONFIG" --generation "$GEN" --seed "$SEED"

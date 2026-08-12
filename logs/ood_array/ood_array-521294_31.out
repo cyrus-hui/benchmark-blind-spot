@@ -1,0 +1,26 @@
+[task 31] config=configs/pilot_gpt2m.yaml gen=6 seed=46
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   9%|▊         | 25/292 [00:00<00:02, 128.11it/s]Loading weights:  13%|█▎        | 39/292 [00:00<00:02, 102.98it/s]Loading weights:  17%|█▋        | 50/292 [00:00<00:02, 81.10it/s] Loading weights:  20%|██        | 59/292 [00:00<00:04, 56.14it/s]Loading weights:  24%|██▎       | 69/292 [00:00<00:03, 61.34it/s]Loading weights:  28%|██▊       | 83/292 [00:01<00:02, 71.75it/s]Loading weights:  31%|███       | 91/292 [00:01<00:02, 67.50it/s]Loading weights:  39%|███▉      | 115/292 [00:01<00:01, 103.54it/s]Loading weights:  43%|████▎     | 127/292 [00:01<00:01, 91.95it/s] Loading weights:  47%|████▋     | 138/292 [00:01<00:02, 61.73it/s]Loading weights:  51%|█████     | 149/292 [00:02<00:02, 61.59it/s]Loading weights:  54%|█████▍    | 157/292 [00:02<00:02, 58.12it/s]Loading weights:  61%|██████    | 177/292 [00:02<00:01, 65.04it/s]Loading weights:  63%|██████▎   | 184/292 [00:02<00:01, 57.93it/s]Loading weights:  65%|██████▌   | 191/292 [00:02<00:02, 45.41it/s]Loading weights:  67%|██████▋   | 196/292 [00:03<00:02, 45.64it/s]Loading weights:  74%|███████▍  | 216/292 [00:03<00:01, 73.76it/s]Loading weights:  82%|████████▏ | 240/292 [00:03<00:00, 98.39it/s]Loading weights:  88%|████████▊ | 256/292 [00:03<00:00, 95.78it/s]Loading weights:  95%|█████████▍| 277/292 [00:03<00:00, 113.76it/s]Loading weights: 100%|██████████| 292/292 [00:03<00:00, 80.41it/s] 
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+  PPL check: new 30.454332 vs stored 30.454332 (delta +0.000000)
+perplexity_ood_c4 (2000 chunks)...
+  PPL check: new 53.669990 vs stored 53.669990 (delta +0.000000)
+perplexity_ood_ccnews (2000 chunks)...
+  PPL check: new 36.325388 vs stored 36.325388 (delta +0.000000)
+perplexity_ood_wiki (2000 chunks)...
+  PPL check: new 34.110587 vs stored 34.110587 (delta +0.000000)
+{
+  "perplexity": 30.454331765303007,
+  "entropy": 2.532677467344834,
+  "top1_prob": 0.4715036266457884,
+  "perplexity_ood_c4": 53.66998971779914,
+  "entropy_ood_c4": 2.9799948321786043,
+  "top1_prob_ood_c4": 0.4019862895135082,
+  "perplexity_ood_ccnews": 36.32538774264164,
+  "entropy_ood_ccnews": 2.7362586692081443,
+  "top1_prob_ood_ccnews": 0.43131509637870274,
+  "perplexity_ood_wiki": 34.11058655268,
+  "entropy_ood_wiki": 2.6190309467063515,
+  "top1_prob_ood_wiki": 0.46085501898457887
+}

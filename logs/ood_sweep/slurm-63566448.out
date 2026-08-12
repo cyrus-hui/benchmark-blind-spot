@@ -1,0 +1,1 @@
+OOD-PPL array 63566415 complete. Check: sacct -j 63566415 --format=JobID,State,Elapsed

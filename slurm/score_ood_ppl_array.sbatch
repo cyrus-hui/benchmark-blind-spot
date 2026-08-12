@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --account=def-enaskt_gpu
+#SBATCH --gpus-per-node=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=24G
+#SBATCH --time=0:30:00
+#SBATCH --array=1-121%20
+#SBATCH --output=logs/ood_array/ood_array-%A_%a.out
+# Reads slurm/ood_manifest.txt; one "CONFIG GEN SEED" triplet per line.
+set -euo pipefail
+source ~/modelcollapse/scripts/narval_env.sh
+MANIFEST=~/modelcollapse/slurm/ood_manifest.txt
+LINE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$MANIFEST")
+read -r CONFIG GEN SEED <<< "$LINE"
+echo "[task ${SLURM_ARRAY_TASK_ID}] config=$CONFIG gen=$GEN seed=$SEED"
+python ~/modelcollapse/src/score_ood_ppl.py --config "$CONFIG" --generation "$GEN" --seed "$SEED"

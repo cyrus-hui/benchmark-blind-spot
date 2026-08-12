@@ -1,0 +1,26 @@
+[task 13] config=configs/pilot_gpt2m.yaml gen=4 seed=44
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   5%|▍         | 14/292 [00:00<00:02, 132.36it/s]Loading weights:  10%|▉         | 29/292 [00:00<00:03, 76.99it/s] Loading weights:  13%|█▎        | 39/292 [00:00<00:03, 74.19it/s]Loading weights:  20%|██        | 59/292 [00:00<00:02, 108.99it/s]Loading weights:  25%|██▌       | 74/292 [00:00<00:02, 83.81it/s] Loading weights:  33%|███▎      | 95/292 [00:01<00:02, 91.37it/s]Loading weights:  37%|███▋      | 107/292 [00:01<00:02, 86.65it/s]Loading weights:  41%|████▏     | 121/292 [00:01<00:01, 93.81it/s]Loading weights:  45%|████▌     | 132/292 [00:01<00:02, 77.79it/s]Loading weights:  48%|████▊     | 141/292 [00:01<00:02, 74.76it/s]Loading weights:  53%|█████▎    | 155/292 [00:01<00:02, 68.24it/s]Loading weights:  56%|█████▌    | 163/292 [00:02<00:02, 64.09it/s]Loading weights:  61%|██████▏   | 179/292 [00:02<00:01, 69.69it/s]Loading weights:  64%|██████▍   | 188/292 [00:02<00:01, 69.12it/s]Loading weights:  72%|███████▏  | 211/292 [00:02<00:01, 68.69it/s]Loading weights:  75%|███████▍  | 218/292 [00:02<00:01, 61.19it/s]Loading weights:  77%|███████▋  | 225/292 [00:03<00:01, 58.95it/s]Loading weights:  82%|████████▏ | 239/292 [00:03<00:00, 65.51it/s]Loading weights:  88%|████████▊ | 256/292 [00:03<00:00, 83.80it/s]Loading weights:  93%|█████████▎| 271/292 [00:03<00:00, 93.70it/s]Loading weights:  97%|█████████▋| 282/292 [00:03<00:00, 95.39it/s]Loading weights: 100%|██████████| 292/292 [00:03<00:00, 81.79it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+  PPL check: new 29.288729 vs stored 29.288729 (delta +0.000000)
+perplexity_ood_c4 (2000 chunks)...
+  PPL check: new 52.682686 vs stored 52.682686 (delta +0.000000)
+perplexity_ood_ccnews (2000 chunks)...
+  PPL check: new 35.643292 vs stored 35.643292 (delta +0.000000)
+perplexity_ood_wiki (2000 chunks)...
+  PPL check: new 32.867286 vs stored 32.867286 (delta +0.000000)
+{
+  "perplexity": 29.28872884195102,
+  "entropy": 2.5626330772716153,
+  "top1_prob": 0.46726476761947383,
+  "perplexity_ood_c4": 52.682686244067966,
+  "entropy_ood_c4": 2.9917967286038873,
+  "top1_prob_ood_c4": 0.4002638356822068,
+  "perplexity_ood_ccnews": 35.643291824824296,
+  "entropy_ood_ccnews": 2.750108412311316,
+  "top1_prob_ood_ccnews": 0.42938760614432775,
+  "perplexity_ood_wiki": 32.8672856855468,
+  "entropy_ood_wiki": 2.646198908975034,
+  "top1_prob_ood_wiki": 0.456706623765173
+}

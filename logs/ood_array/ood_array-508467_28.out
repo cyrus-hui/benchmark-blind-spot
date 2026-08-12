@@ -1,0 +1,26 @@
+[task 28] config=configs/pilot_gpt2m.yaml gen=3 seed=46
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  10%|▉         | 29/292 [00:00<00:02, 95.20it/s]Loading weights:  14%|█▍        | 42/292 [00:00<00:02, 95.51it/s]Loading weights:  18%|█▊        | 52/292 [00:00<00:03, 69.74it/s]Loading weights:  24%|██▍       | 70/292 [00:00<00:02, 94.67it/s]Loading weights:  30%|███       | 89/292 [00:00<00:01, 112.96it/s]Loading weights:  41%|████      | 119/292 [00:01<00:01, 123.45it/s]Loading weights:  49%|████▉     | 144/292 [00:01<00:00, 149.84it/s]Loading weights:  55%|█████▌    | 161/292 [00:01<00:00, 148.38it/s]Loading weights:  61%|██████▏   | 179/292 [00:01<00:00, 153.46it/s]Loading weights:  67%|██████▋   | 196/292 [00:01<00:00, 129.61it/s]Loading weights:  75%|███████▍  | 218/292 [00:01<00:00, 137.18it/s]Loading weights:  81%|████████  | 237/292 [00:01<00:00, 134.10it/s]Loading weights:  91%|█████████▏| 267/292 [00:02<00:00, 163.48it/s]Loading weights: 100%|██████████| 292/292 [00:02<00:00, 138.90it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+perplexity (2213 chunks)...
+  PPL check: new 28.406799 vs stored 28.406799 (delta +0.000000)
+perplexity_ood_c4 (2000 chunks)...
+  PPL check: new 52.078050 vs stored 52.078050 (delta +0.000000)
+perplexity_ood_ccnews (2000 chunks)...
+  PPL check: new 35.264904 vs stored 35.264904 (delta +0.000000)
+perplexity_ood_wiki (2000 chunks)...
+  PPL check: new 31.900373 vs stored 31.900373 (delta +0.000000)
+{
+  "perplexity": 28.40679859120916,
+  "entropy": 2.5934750266856432,
+  "top1_prob": 0.4641599238798979,
+  "perplexity_ood_c4": 52.078050416705075,
+  "entropy_ood_c4": 3.013831384959447,
+  "top1_prob_ood_c4": 0.3977597694094747,
+  "perplexity_ood_ccnews": 35.2649039566767,
+  "entropy_ood_ccnews": 2.774437027519485,
+  "top1_prob_ood_ccnews": 0.42641749477612284,
+  "perplexity_ood_wiki": 31.900373223739706,
+  "entropy_ood_wiki": 2.6761173723215674,
+  "top1_prob_ood_wiki": 0.45369766915302273
+}

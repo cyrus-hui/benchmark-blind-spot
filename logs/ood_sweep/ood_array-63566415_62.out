@@ -1,0 +1,6 @@
+[task 62] config=configs/smollm2_1.7b.yaml gen=5 seed=46
+/home/cyrh/modelcollapse/venv/lib/python3.11/site-packages/torch/cuda/__init__.py:187: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /tmp/build_wheels_tmp.20690/python-3.11/torch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:  77%|███████▋  | 167/218 [00:00<00:00, 1347.60it/s]Loading weights: 100%|██████████| 218/218 [00:00<00:00, 1729.46it/s]
+slurmstepd: error: *** JOB 63567737 ON ng11002 CANCELLED AT 2026-06-21T23:06:29 ***

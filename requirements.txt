@@ -1,0 +1,12 @@
+torch
+transformers>=4.44
+datasets
+accelerate
+peft
+sentence-transformers
+mauve-text
+lm-eval>=0.4.4
+scipy
+numpy
+pyyaml
+wandb
