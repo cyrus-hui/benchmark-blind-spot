@@ -1,0 +1,84 @@
+===== pilot_gpt2m / hellaswag =====
+
+### pilot_gpt2m / hellaswag   seeds [43, 44]
+
+  seed 43  n=10042  acc 0.3931 -> 0.3900   net -0.32pp
+    stable-correct  3647 | c->i  301 | i->c  269 | stable-wrong  5825
+    i->c (gained)  gen0 margin: median -0.0121  |m|<0.01: 42.8%
+    c->i (lost)    gen0 margin: median +0.0115  |m|<0.01: 44.5%
+    stayed wrong   gen0 margin: median -0.1198  |m|<0.01: 3.1%
+    stayed right   gen0 margin: median +0.0890  |m|<0.01: 4.4%
+    decision gap (top1-top2): 0.0875 -> 0.0966 (+10.4%)
+    |margin| quantiles 1/5/25%: 0.00184 / 0.00851 / 0.04678   (bf16 floor ~0.25/blen ~ 0.006)
+
+  seed 44  n=10042  acc 0.3941 -> 0.3897   net -0.45pp
+    stable-correct  3638 | c->i  320 | i->c  275 | stable-wrong  5809
+    i->c (gained)  gen0 margin: median -0.0116  |m|<0.01: 45.5%
+    c->i (lost)    gen0 margin: median +0.0117  |m|<0.01: 45.0%
+    stayed wrong   gen0 margin: median -0.1199  |m|<0.01: 3.0%
+    stayed right   gen0 margin: median +0.0899  |m|<0.01: 4.4%
+    decision gap (top1-top2): 0.0874 -> 0.0968 (+10.8%)
+    |margin| quantiles 1/5/25%: 0.00162 / 0.00827 / 0.04651   (bf16 floor ~0.25/blen ~ 0.006)
+===== pilot_gpt2m / arc_easy =====
+
+### pilot_gpt2m / arc_easy   seeds [43, 44]
+
+  seed 43  n=2376  acc 0.4301 -> 0.4402   net +1.01pp
+    stable-correct   978 | c->i   44 | i->c   68 | stable-wrong  1286
+    i->c (gained)  gen0 margin: median -0.0157  |m|<0.01: 32.4%
+    c->i (lost)    gen0 margin: median +0.0169  |m|<0.01: 29.5%
+    stayed wrong   gen0 margin: median -0.1903  |m|<0.01: 2.3%
+    stayed right   gen0 margin: median +0.1375  |m|<0.01: 2.9%
+    decision gap (top1-top2): 0.1646 -> 0.1794 (+9.0%)
+    |margin| quantiles 1/5/25%: 0.00242 / 0.01189 / 0.06615   (bf16 floor ~0.25/blen ~ 0.006)
+
+  seed 44  n=2376  acc 0.4259 -> 0.4386   net +1.26pp
+    stable-correct   974 | c->i   38 | i->c   68 | stable-wrong  1296
+    i->c (gained)  gen0 margin: median -0.0098  |m|<0.01: 41.2%
+    c->i (lost)    gen0 margin: median +0.0167  |m|<0.01: 31.6%
+    stayed wrong   gen0 margin: median -0.1872  |m|<0.01: 2.7%
+    stayed right   gen0 margin: median +0.1364  |m|<0.01: 3.5%
+    decision gap (top1-top2): 0.1655 -> 0.1806 (+9.1%)
+    |margin| quantiles 1/5/25%: 0.00119 / 0.01142 / 0.06771   (bf16 floor ~0.25/blen ~ 0.006)
+===== smollm2_1.7b / hellaswag =====
+
+### smollm2_1.7b / hellaswag   seeds [43, 44]
+
+  seed 43  n=10042  acc 0.7146 -> 0.7166   net +0.20pp
+    stable-correct  7012 | c->i  164 | i->c  184 | stable-wrong  2682
+    i->c (gained)  gen0 margin: median -0.0086  |m|<0.01: 54.9%
+    c->i (lost)    gen0 margin: median +0.0098  |m|<0.01: 51.2%
+    stayed wrong   gen0 margin: median -0.0836  |m|<0.01: 5.2%
+    stayed right   gen0 margin: median +0.1269  |m|<0.01: 2.2%
+    decision gap (top1-top2): 0.1202 -> 0.1316 (+9.5%)
+    |margin| quantiles 1/5/25%: 0.00231 / 0.01043 / 0.05311   (bf16 floor ~0.25/blen ~ 0.006)
+
+  seed 44  n=10042  acc 0.7159 -> 0.7192   net +0.33pp
+    stable-correct  7029 | c->i  160 | i->c  193 | stable-wrong  2660
+    i->c (gained)  gen0 margin: median -0.0084  |m|<0.01: 55.4%
+    c->i (lost)    gen0 margin: median +0.0085  |m|<0.01: 56.2%
+    stayed wrong   gen0 margin: median -0.0840  |m|<0.01: 4.2%
+    stayed right   gen0 margin: median +0.1267  |m|<0.01: 2.2%
+    decision gap (top1-top2): 0.1202 -> 0.1315 (+9.4%)
+    |margin| quantiles 1/5/25%: 0.00249 / 0.01068 / 0.05304   (bf16 floor ~0.25/blen ~ 0.006)
+===== smollm2_1.7b / arc_easy =====
+
+### smollm2_1.7b / arc_easy   seeds [43, 44]
+
+  seed 43  n=2376  acc 0.7130 -> 0.7205   net +0.76pp
+    stable-correct  1655 | c->i   39 | i->c   57 | stable-wrong   625
+    i->c (gained)  gen0 margin: median -0.0061  |m|<0.01: 45.6%
+    c->i (lost)    gen0 margin: median +0.0122  |m|<0.01: 41.0%
+    stayed wrong   gen0 margin: median -0.1094  |m|<0.01: 5.3%
+    stayed right   gen0 margin: median +0.1981  |m|<0.01: 1.7%
+    decision gap (top1-top2): 0.2120 -> 0.2350 (+10.8%)
+    |margin| quantiles 1/5/25%: 0.00149 / 0.01152 / 0.07296   (bf16 floor ~0.25/blen ~ 0.006)
+
+  seed 44  n=2376  acc 0.7155 -> 0.7235   net +0.80pp
+    stable-correct  1661 | c->i   39 | i->c   58 | stable-wrong   618
+    i->c (gained)  gen0 margin: median -0.0046  |m|<0.01: 41.4%
+    c->i (lost)    gen0 margin: median +0.0127  |m|<0.01: 41.0%
+    stayed wrong   gen0 margin: median -0.1100  |m|<0.01: 5.3%
+    stayed right   gen0 margin: median +0.1958  |m|<0.01: 1.7%
+    decision gap (top1-top2): 0.2118 -> 0.2337 (+10.3%)
+    |margin| quantiles 1/5/25%: 0.00304 / 0.01165 / 0.07145   (bf16 floor ~0.25/blen ~ 0.006)

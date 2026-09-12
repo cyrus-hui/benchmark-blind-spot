@@ -1,0 +1,24 @@
+[task 132] config=configs/smollm2_greedy.yaml gen=2 seed=44
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/218 [00:00<?, ?it/s]Loading weights:   1%|▏         | 3/218 [00:10<12:51,  3.59s/it]Loading weights:   8%|▊         | 17/218 [00:12<01:49,  1.84it/s]Loading weights:  38%|███▊      | 82/218 [00:12<00:11, 12.12it/s]Loading weights:  60%|██████    | 131/218 [00:12<00:03, 22.69it/s]Loading weights: 100%|██████████| 218/218 [00:12<00:00, 17.71it/s]
+perplexity (2213 chunks)...
+  PPL check: new 25.857647 vs stored 25.857647 (delta +0.000000)
+perplexity_ood_c4 (2000 chunks)...
+  PPL check: new 29.153056 vs stored 29.153056 (delta +0.000000)
+perplexity_ood_ccnews (2000 chunks)...
+  PPL check: new 23.008891 vs stored 23.008891 (delta +0.000000)
+perplexity_ood_wiki (2000 chunks)...
+{
+  "perplexity": 25.85764728453513,
+  "entropy": 1.3921546788342685,
+  "top1_prob": 0.6815482533777518,
+  "perplexity_ood_c4": 29.15305622897473,
+  "entropy_ood_c4": 2.364597211951442,
+  "top1_prob_ood_c4": 0.5078079238596196,
+  "perplexity_ood_ccnews": 23.008890880507874,
+  "entropy_ood_ccnews": 2.1042030908754032,
+  "top1_prob_ood_ccnews": 0.5416419156828024,
+  "perplexity_ood_wiki": 29.28443602826162,
+  "entropy_ood_wiki": 1.4586318242443843,
+  "top1_prob_ood_wiki": 0.6714188260317918
+}

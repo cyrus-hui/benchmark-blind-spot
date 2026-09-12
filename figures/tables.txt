@@ -1,0 +1,65 @@
+
+### GPT-2 345M / top-k  (root=pilot_gpt2m, maxgen=7)
+metric                     n       gen0      final    delta%  first-sig   abrupt%
+Perplexity                 4    23.7262    30.8962    +30.22          1      28.1
+KL-unigram                 4     1.8132     2.0249    +11.67          1      45.1
+Distinct-2                 4     0.5816     0.5652     -2.81          1      68.3
+MAUVE                      4     0.9246     0.8916     -3.56      never      75.3
+Emb. variance              4     0.9452     0.9486     +0.36      never      67.3
+HellaSwag                  4     0.3934     0.3910     -0.61          1     173.2
+LAMBADA-acc                4     0.4355     0.4335     -0.45          6     222.5
+ARC-Easy                   4     0.4299     0.4386     +2.01      never      54.9
+LAMBADA-ppl                4    17.1606    15.4943     -9.71      never     141.9
+gap in (nats)              4    -0.0746    +0.9078        --         --        --   [absolute nats only -- never percent]
+gap wiki (nats)            4    -0.0212    +0.9342        --         --        --   [absolute nats only -- never percent]
+gap c4 (nats)              4    +0.2246    +1.0154        --         --        --   [absolute nats only -- never percent]
+gap ccnews (nats)          4    +0.1790    +0.8706        --         --        --   [absolute nats only -- never percent]
+
+### GPT-2 345M / greedy  (root=gpt2m_greedy, maxgen=7)
+metric                     n       gen0      final    delta%  first-sig   abrupt%
+Perplexity                 3    23.7271    83.0168   +249.88          1      44.2
+KL-unigram                 3     4.1080     5.9903    +45.82          1      28.5
+Distinct-2                 3     0.1924     0.1040    -45.94          1      39.7
+MAUVE                      3     0.2167     0.0585    -73.00          1      59.0
+Emb. variance              3     0.9329     0.9046     -3.04          1      21.1
+HellaSwag                  3     0.3935     0.3922     -0.34          1     640.0
+LAMBADA-acc                3     0.4353     0.3619    -16.85          3      34.6
+ARC-Easy                   3     0.4293     0.4184     -2.55          6      53.8
+LAMBADA-ppl                3    17.1694    31.8013    +85.22          2      20.6
+gap in (nats)              3    -0.0747    +2.8452        --         --        --   [absolute nats only -- never percent]
+gap wiki (nats)            3    -0.0212    +2.8978        --         --        --   [absolute nats only -- never percent]
+gap c4 (nats)              3    +0.2246    +2.4725        --         --        --   [absolute nats only -- never percent]
+gap ccnews (nats)          3    +0.1792    +2.1841        --         --        --   [absolute nats only -- never percent]
+
+### SmolLM2 1.7B / top-k  (root=smollm2_1.7b, maxgen=12)
+metric                     n       gen0      final    delta%  first-sig   abrupt%
+Perplexity                 5    12.0136    14.0911    +17.29          1      19.6
+KL-unigram                 5     1.0631     1.3415    +26.19          1      26.2
+Distinct-2                 5     0.5463     0.4550    -16.70          1      28.4
+MAUVE                      5     0.8922     0.7780    -12.80          2      27.2
+Emb. variance              5     0.9579     0.9598     +0.20      never      59.6
+HellaSwag                  5     0.7157     0.7161     +0.05      never     438.9
+LAMBADA-acc                5     0.6775     0.6911     +2.01      never      21.1
+ARC-Easy                   5     0.7138     0.7213     +1.05      never      74.2
+MMLU                       5     0.4976     0.5015     +0.80      never      33.7
+LAMBADA-ppl                5     4.5321     3.6022    -20.52      never      55.9
+gap in (nats)              5    -0.0043    +0.7589        --         --        --   [absolute nats only -- never percent]
+gap wiki (nats)            5    +0.0564    +0.8047        --         --        --   [absolute nats only -- never percent]
+gap c4 (nats)              5    +0.1504    +0.5906        --         --        --   [absolute nats only -- never percent]
+gap ccnews (nats)          5    +0.1571    +0.5961        --         --        --   [absolute nats only -- never percent]
+
+### SmolLM2 1.7B / greedy  (root=smollm2_greedy, maxgen=7)
+metric                     n       gen0      final    delta%  first-sig   abrupt%
+Perplexity                 3    12.0149    57.0445   +374.78          1      15.8
+KL-unigram                 3     2.6034     3.4983    +34.38          1      40.8
+Distinct-2                 3     0.2149     0.1258    -41.45          1      47.3
+MAUVE                      3     0.2419     0.0269    -88.87          1      60.9
+Emb. variance              3     0.9416     0.9214     -2.15          1      47.1
+HellaSwag                  3     0.7155     0.6026    -15.78          1      32.5
+LAMBADA-acc                3     0.6773     0.6627     -2.16          3      26.1
+ARC-Easy                   3     0.7139     0.6811     -4.60          1      38.0
+LAMBADA-ppl                3     4.5336     4.0608    -10.43      never     197.5
+gap in (nats)              3    -0.0043    +2.7667        --         --        --   [absolute nats only -- never percent]
+gap wiki (nats)            3    +0.0564    +2.8797        --         --        --   [absolute nats only -- never percent]
+gap c4 (nats)              3    +0.1484    +1.3365        --         --        --   [absolute nats only -- never percent]
+gap ccnews (nats)          3    +0.1549    +1.3302        --         --        --   [absolute nats only -- never percent]

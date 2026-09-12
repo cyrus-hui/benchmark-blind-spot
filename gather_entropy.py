@@ -10,6 +10,7 @@ from scipy import stats
 M = {"smollm2": ("smollm2_1.7b", [43, 44, 45, 46, 47]),
      "gpt2":    ("pilot_gpt2m",  [43, 44, 45, 46]),
      "greedy":  ("gpt2m_greedy", [43, 44, 45]),
+     "smollm2_greedy": ("smollm2_greedy", [43, 44, 45]),
      "nucleus": ("gpt2m_nucleus",[43, 44, 45])}
 SLICES = ["", "_ood_c4", "_ood_ccnews", "_ood_wiki"]
 LABEL = {"": "in_domain", "_ood_c4": "c4", "_ood_ccnews": "ccnews", "_ood_wiki": "wiki"}
