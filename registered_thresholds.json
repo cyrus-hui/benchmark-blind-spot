@@ -1,0 +1,36 @@
+{
+  "dcal": {
+    "tau": 0.0635
+  },
+  "outcome": {
+    "greedy": {
+      "tau_D": null,
+      "tau_K": null
+    },
+    "topk": {
+      "tau_D": 0.0105,
+      "tau_K": 0.1111
+    }
+  },
+  "pinc": {
+    "tau": 0.0741
+  },
+  "pslope": {
+    "tau_g2": 0.002,
+    "tau_g3": 0.00124,
+    "tau_g4": -0.00018,
+    "tau_g5": 0.00021,
+    "tau_g6": -8e-05,
+    "tau_g7": 0.00018
+  },
+  "sigma": {
+    "greedy": {
+      "full": null,
+      "sub": null
+    },
+    "topk": {
+      "full": 6.148,
+      "sub": 7.248
+    }
+  }
+}
