@@ -1,0 +1,91 @@
+registry md5 62d1254829994ab8b2f6dbb6b2edd047  pending []
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+PASS  topk: no control chain is outcome-collapsed (by construction)  
+
+##### decoder = topk
+outcome label, collapsed chains by r: r=25: 0/3  r=50: 0/3  r=75: 0/3  r=100: 2/3
+latency dcal        r=0:8,8,8  r=25:1,1,1  r=50:1,1,1  r=75:1,1,1  r=100:1,1,1
+latency pinc        r=0:8,8,8  r=25:5,5,5  r=50:6,6,6  r=75:2,2,2  r=100:1,1,1
+latency pslope      r=0:8,8,8  r=25:2,2,2  r=50:2,2,2  r=75:2,2,2  r=100:2,2,2
+latency sigma_sub   r=0:8,8,8  r=25:8,8,8  r=50:8,2,8  r=75:3,2,8  r=100:4,2,2
+latency sigma_full  r=0:8,8,8  r=25:8,8,8  r=50:8,4,8  r=75:8,3,8  r=100:4,2,4
+
+--- design label, topk: 12 positive vs 3 negative chains
+  dcal        AUC 1.0000  mean latency 1.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pinc        AUC 1.0000  mean latency 3.500  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pslope      AUC 1.0000  mean latency 2.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_sub   AUC 0.6667  mean latency 5.250  TPR@tau 6/12  FPR@TPR=1 0.667 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_full  AUC 0.6667  mean latency 6.083  TPR@tau 5/12  FPR@TPR=1 0.667 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  Delta_cal separates at the registered tau: YES
+  Delta_cal vs SIGMA (ranked on sigma_sub): WIN  [level: auc]  auc: decided, jackknife-stable
+  Delta_cal vs PPL (ranked on pslope): WIN  [level: mean_lat]  auc: equal; mean_lat: decided, jackknife-stable
+
+--- outcome label, topk: 2 positive vs 3 negative chains
+  NOT EVALUABLE: fewer than 3 positive chains; set aside, counts neither way
+  exposed-not-collapsed chains (set aside, own row): 10
+    dcal        flags 10/10
+    pinc        flags 10/10
+    pslope      flags 10/10
+    sigma_sub   flags 4/10
+    sigma_full  flags 3/10
+PASS  greedy: no control chain is outcome-collapsed (by construction)  
+
+##### decoder = greedy
+outcome label, collapsed chains by r: r=25: 3/3  r=50: 3/3  r=75: 3/3  r=100: 3/3
+latency dcal        r=0:8,8,8  r=25:1,1,1  r=50:1,1,1  r=75:1,1,1  r=100:1,1,1
+latency pinc        r=0:8,8,8  r=25:1,1,1  r=50:1,1,1  r=75:1,1,1  r=100:1,1,1
+latency pslope      r=0:8,8,8  r=25:5,4,4  r=50:8,8,8  r=75:2,2,2  r=100:2,2,2
+latency sigma_sub   r=0:8,8,8  r=25:4,5,5  r=50:3,1,4  r=75:1,1,1  r=100:2,1,3
+latency sigma_full  r=0:8,8,8  r=25:8,8,8  r=50:5,1,5  r=75:1,1,2  r=100:2,1,2
+
+--- design label, greedy: 12 positive vs 3 negative chains
+  dcal        AUC 1.0000  mean latency 1.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pinc        AUC 1.0000  mean latency 1.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pslope      AUC 0.5000  mean latency 4.083  TPR@tau 9/12  FPR@TPR=1 1.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_sub   AUC 1.0000  mean latency 2.583  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_full  AUC 0.9722  mean latency 3.667  TPR@tau 9/12  FPR@TPR=1 0.333 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  Delta_cal separates at the registered tau: YES
+  Delta_cal vs SIGMA (ranked on sigma_sub): WIN  [level: mean_lat]  auc: equal; mean_lat: decided, jackknife-stable
+  Delta_cal vs PPL (ranked on pinc): CEILING  [level: -]  both at AUC 1.0 and latency 1.0 on every positive chain
+
+--- outcome label, greedy: 12 positive vs 3 negative chains
+  dcal        AUC 1.0000  mean latency 1.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pinc        AUC 1.0000  mean latency 1.000  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  pslope      AUC 0.5000  mean latency 4.083  TPR@tau 9/12  FPR@TPR=1 1.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_sub   AUC 1.0000  mean latency 2.583  TPR@tau 12/12  FPR@TPR=1 0.000 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  sigma_full  AUC 0.9722  mean latency 3.667  TPR@tau 9/12  FPR@TPR=1 0.333 (resolution 1/3)  controls flagged at tau 0/3 (0 by construction)
+  Delta_cal separates at the registered tau: YES
+  Delta_cal vs SIGMA (ranked on sigma_sub): WIN  [level: mean_lat]  auc: equal; mean_lat: decided, jackknife-stable
+  Delta_cal vs PPL (ranked on pinc): CEILING  [level: -]  both at AUC 1.0 and latency 1.0 on every positive chain
+  exposed-not-collapsed chains (set aside, own row): 0
+    dcal        flags 0/0
+    pinc        flags 0/0
+    pslope      flags 0/0
+    sigma_sub   flags 0/0
+    sigma_full  flags 0/0
+
+Delta_cal pooled ROC as pre-registered Sept 15 (b): 24 exposed vs 3 controls, AUC 1.0000, TPR@tau 24/24
+
+=== Phase 5 exit criterion, over the evaluable readings: design/topk, design/greedy, outcome/greedy
+separates in every reading: True
+beats SIGMA: True   readings: ['WIN', 'WIN', 'WIN']
+beats PPL: True   readings: ['WIN', 'CEILING', 'CEILING']
+EXIT (i) separates and beats both baselines
+Every FPR above is 0 at the registered tau BY CONSTRUCTION (tau is the control maximum).
+The only out-of-sample false-positive evidence is cross-scale: run --transfer.
+RESULT OK

@@ -1,0 +1,33 @@
+authorised  registry md5 62d1254829994ab8b2f6dbb6b2edd047  pending []
+PASS  tau_Delta recomputed +0.063474 vs registered 0.0635
+tau_Delta = +0.063474  (full precision)
+
+(G1) class per (decoder, seed), on Delta(7)
+  topk   s43  r0=+0.0569  r25=+0.1799  r50=+0.3247  r75=+0.5149  r100=+0.9822   -> graded, detectable
+  topk   s44  r0=+0.0564  r25=+0.1810  r50=+0.3187  r75=+0.5184  r100=+0.9830   -> graded, detectable
+  topk   s45  r0=+0.0566  r25=+0.1854  r50=+0.3190  r75=+0.5181  r100=+0.9813   -> graded, detectable
+  greedy s43  r0=+0.0569  r25=+0.1378  r50=+0.2399  r75=+0.6462  r100=+2.9121   -> graded, detectable
+  greedy s44  r0=+0.0564  r25=+0.1403  r50=+0.2270  r75=+0.6104  r100=+2.9270   -> graded, detectable
+  greedy s45  r0=+0.0566  r25=+0.1439  r50=+0.2452  r75=+0.6342  r100=+2.9204   -> graded, detectable
+  VERDICT: graded, detectable (6/6)
+
+(G2) D_s(r) = Delta(7)_greedy - Delta(7)_topk
+  r=25  -0.0421  -0.0407  -0.0415   effect=YES
+  r=50  -0.0849  -0.0916  -0.0738   effect=YES
+  r=75  +0.1314  +0.0920  +0.1161   effect=YES
+  r moves Delta(7) at topk: 3/3
+  r moves Delta(7) at greedy: 3/3
+
+(G3) latency: first g with Delta(g) > tau
+  topk   r=0   --  --  --
+  topk   r=25  1  1  1
+  topk   r=50  1  1  1
+  topk   r=75  1  1  1
+  topk   r=100 1  1  1
+  greedy r=0   --  --  --
+  greedy r=25  1  1  1
+  greedy r=50  1  1  1
+  greedy r=75  1  1  1
+  greedy r=100 1  1  1
+
+(G4) Fixed-budget mixing; GPT-2 Medium 345M; gens 1-7; n=3 chains per (r, decoder); corpus-mode prompts from the generation's own training mixture; WikiText-103 real component scored on WikiText-2 test. NOT accumulation. The 6 G1 cells share slice 7 and, per decoder, a gen-0 model.
