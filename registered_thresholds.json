@@ -4,8 +4,8 @@
   },
   "outcome": {
     "greedy": {
-      "tau_D": null,
-      "tau_K": null
+      "tau_D": 0.0137,
+      "tau_K": 0.1775
     },
     "topk": {
       "tau_D": 0.0105,
@@ -25,8 +25,8 @@
   },
   "sigma": {
     "greedy": {
-      "full": null,
-      "sub": null
+      "full": 6.134,
+      "sub": 11.005
     },
     "topk": {
       "full": 6.148,

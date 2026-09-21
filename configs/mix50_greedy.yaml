@@ -1,0 +1,50 @@
+# Pilot configuration — GPT-2 Medium on WikiText-2
+# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+
+run_name: mix50_greedy
+seed: 42
+
+model:
+  base_name: gpt2-medium          # swap to HuggingFaceTB/SmolLM2-1.7B for Phase 3 main runs
+  use_lora: false                 # full FT for GPT-2 Medium (matches Drayson; LoRA adds an
+                                  # expressivity confound — revisit for 1.7B)
+  lora_r: 16
+  lora_alpha: 32
+
+data:
+  dataset_name: Salesforce/wikitext
+  dataset_config: wikitext-2-raw-v1
+  block_size: 128                 # tokens per training chunk
+  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+
+decoding:                         # ABLATION — see plan.md Ablations
+  strategy: greedy
+  top_k: 50                       # unused: greedy branch discards kwargs
+  top_p: null                     # unused under greedy
+  temperature: 1.0
+  max_new_tokens: 96              # block_size - prompt_len
+
+training:
+  num_epochs: 3
+  learning_rate: 5.0e-5
+  per_device_batch_size: 16
+  gradient_accumulation: 2
+  warmup_ratio: 0.03
+  bf16: true
+
+eval:
+  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+  eval_max_new_tokens: 96
+  sbert_model: sentence-transformers/all-MiniLM-L6-v2
+  mauve_featurizer: gpt2-large    # mauve-text default; must be pre-cached
+  benchmarks: "hellaswag,lambada_openai"
+  benchmark_fewshot: 0
+
+paths:                            # all under $SCRATCH on Narval; resolved at runtime
+  workdir: ${SCRATCH}/collapse    # corpora, models, results live here
+
+# ---- Phase 5.3 severity grid (decisions.md, Sept 15 2026) ----
+# derived from configs/gpt2m_greedy.yaml; only run_name and these keys differ
+mix_ratio: 0.50
+mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+mix_expect_chunks: 18686

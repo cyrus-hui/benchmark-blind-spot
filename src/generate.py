@@ -59,6 +59,8 @@ def main():
     ap.add_argument("--generation", type=int, required=True, help="model generation g")
     ap.add_argument("--mode", choices=["corpus", "eval"], required=True)
     ap.add_argument("--seed", type=int, default=None)
+    ap.add_argument("--prompt-corpus", default=None,  # Phase 5.3
+                    help="jsonl to draw corpus-mode prompts from; default unchanged")
     ap.add_argument("--batch-size", type=int, default=64)
     args = ap.parse_args()
 
@@ -80,10 +82,13 @@ def main():
 
     if args.mode == "corpus":
         # source corpus = what THIS generation was trained on
-        if args.generation == 0:
+        if args.prompt_corpus:  # Phase 5.3: prompts from what this generation actually trained on
+            src_rows = read_jsonl(Path(args.prompt_corpus))
+        elif args.generation == 0:
             src_rows = read_jsonl(root / "real_train.jsonl")
         else:
             src_rows = read_jsonl(gen_dir(cfg, args.generation - 1, seed) / "synthetic_corpus.jsonl")
+        print(f"prompt source: {args.prompt_corpus or 'default'} ({len(src_rows)} rows)")
         prompts = []
         for r in src_rows:
             ids = tok(r["text"], return_tensors=None)["input_ids"][:pl]

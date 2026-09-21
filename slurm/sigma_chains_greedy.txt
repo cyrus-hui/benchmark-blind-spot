@@ -1,0 +1,16 @@
+control_gpt2m_greedyeval 43
+control_gpt2m_greedyeval 44
+control_gpt2m_greedyeval 45
+gpt2m_greedy 43
+gpt2m_greedy 44
+gpt2m_greedy 45
+mix25_greedy 43
+mix25_greedy 44
+mix25_greedy 45
+mix50_greedy 43
+mix50_greedy 44
+mix50_greedy 45
+mix75_greedy 43
+mix75_greedy 44
+mix75_greedy 45
+control_gpt2m_greedyeval 46

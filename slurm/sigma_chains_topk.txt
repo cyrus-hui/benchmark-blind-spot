@@ -1,0 +1,16 @@
+control_gpt2m 43
+control_gpt2m 44
+control_gpt2m 45
+control_gpt2m 46
+pilot_gpt2m 43
+pilot_gpt2m 44
+pilot_gpt2m 45
+mix25_topk 43
+mix25_topk 44
+mix25_topk 45
+mix50_topk 43
+mix50_topk 44
+mix50_topk 45
+mix75_topk 43
+mix75_topk 44
+mix75_topk 45

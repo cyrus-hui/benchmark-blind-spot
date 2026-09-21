@@ -1,0 +1,51 @@
+# Phase 5.2 NEGATIVE CONTROL at 1.7B — SmolLM2-1.7B, fresh real slices each generation.
+# Clone of smollm2_1.7b.yaml. ONLY run_name differs; every training, decoding and eval
+# field is identical, because the manipulated variable is synthetic-vs-real and nothing else.
+#
+# Corpus: $SCRATCH/collapse/fresh_slices_gpt2m/gen{G}_real.jsonl — gpt2-medium-segmented,
+# 18,686 chunks. This is CORRECT and not an oversight: smollm2_1.7b's own real_train.jsonl
+# is a symlink to pilot_gpt2m's (md5 072dfa4964ac0eafdecdd609f7a5b78f), so the twin is
+# already trained on gpt2-medium segmentation. Re-segmenting for the control would make it
+# the only 1.7B arm chunked differently from its comparator. Verified Sept 14 2026.
+
+run_name: control_smollm2
+seed: 43                          # vestigial — the driver passes --seed on the CLI
+
+model:
+  base_name: HuggingFaceTB/SmolLM2-1.7B
+  use_lora: false
+  lora_r: 16
+  lora_alpha: 32
+
+data:
+  dataset_name: Salesforce/wikitext
+  dataset_config: wikitext-2-raw-v1
+  block_size: 128
+  prompt_len: 32
+
+decoding:
+  strategy: top_k
+  top_k: 50
+  top_p: null
+  temperature: 1.0
+  max_new_tokens: 96
+
+training:
+  num_epochs: 3
+  learning_rate: 2.0e-5           # matches smollm2_1.7b, NOT gpt2's 5e-5
+  per_device_batch_size: 16
+  gradient_accumulation: 2        # effective batch 32 -> ceil(18686/32)*3 = 1752 steps
+  warmup_ratio: 0.03
+  bf16: true
+
+eval:
+  n_eval_prompts: 1000
+  eval_max_new_tokens: 96
+  mauve_n_eval_prompts: 2000      # UNCHANGED from the twin — required for MAUVE comparability
+  sbert_model: sentence-transformers/all-MiniLM-L6-v2
+  mauve_featurizer: gpt2-large
+  benchmarks: "hellaswag,lambada_openai,arc_easy,mmlu"
+  benchmark_fewshot: 0
+
+paths:
+  workdir: ${SCRATCH}/collapse
