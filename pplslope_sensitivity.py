@@ -429,9 +429,9 @@ def main():
         return do_register(a.dry_run, a.inverse)
     if a.run:
         gate_grid(a.authorise_grid_read, a.ranked_verdicts)
-        print("NOT IMPLEMENTED: the head-to-head half is written after src/detectors.py's "
-              "surface is probed on Narval.  Thresholds are complete; nothing was read.")
-        return 1
+        sys.path.insert(0, str(ROOT))
+        import sens_h2h
+        return sens_h2h.run(sys.modules[__name__], a.ranked_verdicts)
     ap.print_help()
     return 1
 
