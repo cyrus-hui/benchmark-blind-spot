@@ -1,0 +1,102 @@
+gate OK: registry 62d1254829994ab8b2f6dbb6b2edd047, pending []
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+CANARY PASS: ranked verdict table rebuilt, identical to logs/5p4_read.log in all 4 readings (3 evaluable)
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+CANARY PASS: Sec 13 amended seed sets (greedy 43-46) reproduce the registry and the read-log verdicts
+  full-precision tau that differ between code (greedy 43-45) and amendment (43-46): none
+
+=== thresholds by fold (full set = amended, 43-46) ===
+  tau                     full set    drop s43    drop s44    drop s45    drop s46
+  dcal                    +0.06347    +0.06341    +0.06347    +0.06347    +0.06347
+  pinc                    +0.07414    +0.07414    +0.07357    +0.07414    +0.07414
+  pslope g2               +0.00200    +0.00149    +0.00200    +0.00200    +0.00200
+  pslope g3               +0.00124    +0.00124    +0.00124    +0.00090    +0.00124
+  pslope g4               -0.00018    -0.00018    -0.00018    -0.00075    -0.00018
+  pslope g5               +0.00021    +0.00021    +0.00021    +0.00014    +0.00021
+  pslope g6               -0.00008    -0.00008    -0.00008    -0.00008    -0.00009
+  pslope g7               +0.00018    +0.00018    +0.00018    +0.00018    +0.00016
+  sigma topk sub          +7.24809    +7.24809    +2.22978    +7.24809    +7.24809
+  sigma topk full         +6.14784    +6.14784    +6.14784    +6.14784    +4.44144
+  outcome topk tau_D      +0.01050    +0.01050    +0.00867    +0.01050    +0.01050
+  outcome topk tau_K      +0.11112    +0.11112    +0.09691    +0.11112    +0.11112
+  sigma greedy sub       +11.00485   +11.00485    +5.40631   +11.00485   +11.00485
+  sigma greedy full       +6.13409    +6.13409    +0.54619    +6.13409    +6.13409
+  outcome greedy tau_D    +0.01368    +0.01368    +0.00700    +0.01368    +0.01368
+  outcome greedy tau_K    +0.17753    +0.17753    +0.14375    +0.17753    +0.17753
+
+=== verdict table by fold ('separates' = TPR half; see header) ===
+  registered:
+    design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+    outcome/topk    not evaluable (< 3 positive chains)
+    design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    exit (i)
+  drop s43:
+    design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+    outcome/topk    not evaluable (< 3 positive chains)
+    design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    exit (i)   beats SIGMA True   beats PPL True
+    differs from registered: no
+  drop s44:
+    design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+    outcome/topk    pos  3  separates YES  SIGMA TIE     (sigma_sub)  PPL CEILING (pinc)
+    design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    exit (ii)   beats SIGMA False   beats PPL True
+    differs from registered: outcome/topk: evaluable in one table only
+  drop s45:
+    design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+    outcome/topk    not evaluable (< 3 positive chains)
+    design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    exit (i)   beats SIGMA True   beats PPL True
+    differs from registered: no
+  drop s46:
+    design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+    outcome/topk    not evaluable (< 3 positive chains)
+    design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+    exit (i)   beats SIGMA True   beats PPL True
+    differs from registered: no
+
+=== weakest across the four folds, beside the registered verdict ===
+  design/topk     SIGMA registered WIN     weakest WIN       PPL registered WIN     weakest WIN       TPR half holds 4/4
+  outcome/topk    not evaluable registered; evaluable in 1/4 folds: SIGMA TIE, PPL CEILING
+  design/greedy   SIGMA registered WIN     weakest WIN       PPL registered CEILING weakest CEILING   TPR half holds 4/4
+  outcome/greedy  SIGMA registered WIN     weakest WIN       PPL registered CEILING weakest CEILING   TPR half holds 4/4
+  exit by fold: s43: (i)  s44: (ii)  s45: (i)  s46: (i)
+  WEAKER THAN REGISTERED (stated limitations): outcome/topk becomes evaluable with a TIE/LOSS
+
+registry md5 unchanged 62d1254829994ab8b2f6dbb6b2edd047
+RESULT OK
