@@ -1,0 +1,66 @@
+gate OK: registry 62d1254829994ab8b2f6dbb6b2edd047, pending []
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+CANARY PASS: ranked verdict table rebuilt, identical to logs/5p4_read.log in all 4 readings (3 evaluable)
+
+tau_Delta +0.063474 (registered 0.0635)   tau_P-inc +0.074136 (registered 0.0741)
+DESCRIPTIVE ONLY.  Seeds share slices: three seeds are not three replicates.
+
+  decoder    r seed    Delta(1)  /tau_D        s(1)  /tau_P   lat D  lat P-inc
+  topk       0   43    +0.06347    1.00    +0.07087    0.96       8      8
+  topk       0   44    +0.06341    1.00    +0.07235    0.98       8      8
+  topk       0   45    +0.05689    0.90    +0.07030    0.95       8      8
+             0  min                0.90                0.95
+  topk      25   43    +0.13172    2.08    +0.02188    0.30       1      5
+  topk      25   44    +0.13210    2.08    +0.02158    0.29       1      5
+  topk      25   45    +0.13191    2.08    +0.02138    0.29       1      5
+            25  min                2.08                0.29
+  topk      50   43    +0.25525    4.02    +0.03166    0.43       1      6
+  topk      50   44    +0.24980    3.94    +0.03264    0.44       1      6
+  topk      50   45    +0.25429    4.01    +0.03108    0.42       1      6
+            50  min                3.94                0.42
+  topk      75   43    +0.39459    6.22    +0.05021    0.68       1      2
+  topk      75   44    +0.39524    6.23    +0.05091    0.69       1      2
+  topk      75   45    +0.39202    6.18    +0.05099    0.69       1      2
+            75  min                6.18                0.68
+  topk     100   43    +0.56953    8.97    +0.08153    1.10       1      1
+  topk     100   44    +0.56307    8.87    +0.08186    1.10       1      1
+  topk     100   45    +0.56500    8.90    +0.08125    1.10       1      1
+           100  min                8.87                1.10
+  greedy     0   43    +0.06347    1.00    +0.07087    0.96       8      8
+  greedy     0   44    +0.06341    1.00    +0.07235    0.98       8      8
+  greedy     0   45    +0.05689    0.90    +0.07030    0.95       8      8
+             0  min                0.90                0.95
+  greedy    25   43    +0.51259    8.08    +0.07962    1.07       1      1
+  greedy    25   44    +0.49265    7.76    +0.07417    1.00       1      1
+  greedy    25   45    +0.49431    7.79    +0.07529    1.02       1      1
+            25  min                7.76                1.00
+  greedy    50   43    +0.82215   12.95    +0.15876    2.14       1      1
+  greedy    50   44    +0.79871   12.58    +0.15258    2.06       1      1
+  greedy    50   45    +0.80616   12.70    +0.15221    2.05       1      1
+            50  min               12.58                2.05
+  greedy    75   43    +0.95202   15.00    +0.17494    2.36       1      1
+  greedy    75   44    +0.95756   15.09    +0.17799    2.40       1      1
+  greedy    75   45    +0.96357   15.18    +0.18161    2.45       1      1
+            75  min               15.00                2.36
+  greedy   100   43    +2.28154   35.94    +0.74041    9.99       1      1
+  greedy   100   44    +2.28735   36.04    +0.74708   10.08       1      1
+  greedy   100   45    +2.28490   36.00    +0.74455   10.04       1      1
+           100  min               35.94                9.99
+
+CANARY PASS: every gen-1 margin agrees with the read's latency-1 decision
+RESULT OK
