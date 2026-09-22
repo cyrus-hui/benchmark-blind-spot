@@ -1,0 +1,87 @@
+gate OK: registry complete, md5 62d1254829994ab8b2f6dbb6b2edd047, ranked verdicts on file
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+CANARY PASS: ranked verdict table rebuilt, identical to logs/5p4_read.log in all 4 readings (3 evaluable)
+CANARY PASS: 40/40 sensitivity threshold sets reproduce exactly from control_gpt2m [43, 44, 45, 46]
+CANARY PASS: in.excl.expand.perwin reproduces the ranked P-slope (latency exact, score < 1e-12), both decoders
+
+=== registered (ranked) verdicts, rebuilt ===
+  design/topk     pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL WIN     (pslope)
+  outcome/topk    not evaluable (< 3 positive chains)
+  design/greedy   pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+  outcome/greedy  pos 12  separates YES  SIGMA WIN     (sigma_sub)  PPL CEILING (pinc)
+  exit (i)   beats PPL True
+
+=== A. P-slope sensitivity: Delta_cal vs better-of {P-inc, P-slope variant}, in-domain ===
+    reported, never ranked; the weakest verdict per reading is the sensitivity result
+  in.excl.expand.perwin        beats PPL True   design/topk: WIN (pslope)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)  <- registered
+  in.excl.expand.single        beats PPL True   design/topk: WIN (pslope)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.excl.trail3.perwin        beats PPL True   design/topk: WIN (pinc)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.excl.trail3.single        beats PPL True   design/topk: WIN (pinc)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.incl.expand.perwin        beats PPL True   design/topk: WIN (pslope)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.incl.expand.single        beats PPL True   design/topk: WIN (pinc)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.incl.trail3.perwin        beats PPL True   design/topk: WIN (pinc)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+  in.incl.trail3.single        beats PPL True   design/topk: WIN (pinc)  outcome/topk: n/e  design/greedy: CEILING (pinc)  outcome/greedy: CEILING (pinc)
+
+  weakest across the 8 in-domain variants, beside the registered verdict:
+    design/topk     registered WIN     weakest WIN    
+    outcome/topk    not evaluable
+    design/greedy   registered CEILING weakest CEILING
+    outcome/greedy  registered CEILING weakest CEILING
+  'beats perplexity' holds under all 8 in-domain variants: True
+
+=== B. OOD P-slope variants: Delta_cal vs the variant alone (reported, not in the weakest) ===
+  ood_wiki.excl.expand.perwin        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_wiki.excl.expand.single        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_wiki.excl.trail3.perwin        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_wiki.excl.trail3.single        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_wiki.incl.expand.perwin        design/topk: CEILING  outcome/topk: n/e  design/greedy: CEILING  outcome/greedy: CEILING
+  ood_wiki.incl.expand.single        design/topk: CEILING  outcome/topk: n/e  design/greedy: CEILING  outcome/greedy: CEILING
+  ood_wiki.incl.trail3.perwin        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_wiki.incl.trail3.single        design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.excl.expand.perwin          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.excl.expand.single          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.excl.trail3.perwin          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.excl.trail3.single          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.incl.expand.perwin          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.incl.expand.single          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.incl.trail3.perwin          design/topk: TIE  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_c4.incl.trail3.single          design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.excl.expand.perwin      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.excl.expand.single      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.excl.trail3.perwin      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.excl.trail3.single      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.incl.expand.perwin      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.incl.expand.single      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.incl.trail3.perwin      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+  ood_ccnews.incl.trail3.single      design/topk: WIN  outcome/topk: n/e  design/greedy: WIN  outcome/greedy: WIN
+
+=== C. Delta-slope mirror: Delta-slope(axes) vs P-slope(same axes), in-domain (reported only) ===
+  dcal.excl.expand.perwin      design/topk: TIE (AUC 1.000, lat 2.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.250, lat 6.500)  outcome/greedy: LOSS (AUC 0.250, lat 6.500)
+  dcal.excl.expand.single      design/topk: TIE (AUC 1.000, lat 2.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.250, lat 6.500)  outcome/greedy: LOSS (AUC 0.250, lat 6.500)
+  dcal.excl.trail3.perwin      design/topk: LOSS (AUC 0.667, lat 2.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.278, lat 6.500)  outcome/greedy: LOSS (AUC 0.278, lat 6.500)
+  dcal.excl.trail3.single      design/topk: LOSS (AUC 0.667, lat 2.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.278, lat 6.500)  outcome/greedy: LOSS (AUC 0.278, lat 6.500)
+  dcal.incl.expand.perwin      design/topk: WIN (AUC 1.000, lat 1.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.500, lat 1.000)  outcome/greedy: LOSS (AUC 0.500, lat 1.000)
+  dcal.incl.expand.single      design/topk: WIN (AUC 1.000, lat 1.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.500, lat 1.000)  outcome/greedy: LOSS (AUC 0.500, lat 1.000)
+  dcal.incl.trail3.perwin      design/topk: LOSS (AUC 0.667, lat 1.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.278, lat 1.000)  outcome/greedy: LOSS (AUC 0.278, lat 1.000)
+  dcal.incl.trail3.single      design/topk: LOSS (AUC 0.667, lat 1.000)  outcome/topk: n/e  design/greedy: LOSS (AUC 0.278, lat 1.000)  outcome/greedy: LOSS (AUC 0.278, lat 1.000)
+  AUC resolution per reading is 1/(n_pos x 3); FPR at every variant tau is 0 on the
+  controls by construction (each tau is the control maximum).
+
+registry md5 unchanged 62d1254829994ab8b2f6dbb6b2edd047; sensitivity md5 unchanged dd756a9628e124f402ecdd50dd187d0c
+arms opened by the ranked rebuild: ['control_gpt2m', 'control_gpt2m_greedyeval', 'gpt2m_greedy', 'mix25_greedy', 'mix25_topk', 'mix50_greedy', 'mix50_topk', 'mix75_greedy', 'mix75_topk', 'pilot_gpt2m']
+RESULT OK
