@@ -1,0 +1,188 @@
+== generate.py main, corpus mode
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--generation", type=int, required=True, help="model generation g")
+    ap.add_argument("--mode", choices=["corpus", "eval"], required=True)
+    ap.add_argument("--seed", type=int, default=None)
+    ap.add_argument("--prompt-corpus", default=None,  # Phase 5.3
+                    help="jsonl to draw corpus-mode prompts from; default unchanged")
+    ap.add_argument("--batch-size", type=int, default=64)
+    args = ap.parse_args()
+
+    cfg = load_config(args.config)
+    seed = args.seed if args.seed is not None else cfg["seed"]
+    set_seed(seed + args.generation)  # decouple sampling noise across generations
+    offline_ok()
+
+    gd = gen_dir(cfg, args.generation, seed)
+    root = Path(cfg["paths"]["workdir"]) / cfg["run_name"]
+    tok = AutoTokenizer.from_pretrained(gd / "model", local_files_only=True, padding_side="left")
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    model = AutoModelForCausalLM.from_pretrained(
+        gd / "model", local_files_only=True, torch_dtype=torch.bfloat16).to(device()).eval()
+
+    gen_kwargs = build_gen_kwargs(cfg)
+    pl = cfg["data"]["prompt_len"]
+
+    if args.mode == "corpus":
+        # source corpus = what THIS generation was trained on
+        if args.prompt_corpus:  # Phase 5.3: prompts from what this generation actually trained on
+            src_rows = read_jsonl(Path(args.prompt_corpus))
+        elif args.generation == 0:
+            src_rows = read_jsonl(root / "real_train.jsonl")
+        else:
+            src_rows = read_jsonl(gen_dir(cfg, args.generation - 1, seed) / "synthetic_corpus.jsonl")
+        print(f"prompt source: {args.prompt_corpus or 'default'} ({len(src_rows)} rows)")
+        prompts = []
+        for r in src_rows:
+            ids = tok(r["text"], return_tensors=None)["input_ids"][:pl]
+            prompts.append(tok.decode(ids))
+        conts = batched_generate(model, tok, prompts, gen_kwargs, args.batch_size)
+        out = gd / "synthetic_corpus.jsonl"
+        write_jsonl(out, [{"text": p + c} for p, c in zip(prompts, conts)])
+        print(f"synthetic corpus for gen{args.generation + 1}: {len(conts)} chunks -> {out}")
+
+    else:  # eval
+        n_eval = cfg["eval"].get("mauve_n_eval_prompts", cfg["eval"]["n_eval_prompts"])
+        all_rows = read_jsonl(root / "eval_prompts.jsonl")
+        rows = all_rows[:n_eval]
+        gk = dict(gen_kwargs); gk["max_new_tokens"] = cfg["eval"]["eval_max_new_tokens"]
+        conts = batched_generate(model, tok, [r["prompt"] for r in rows], gk, args.batch_size)
+        out = gd / "eval_completions.jsonl"
+        write_jsonl(out, [{"prompt": r["prompt"], "model": c,
+                           "human": r["human_continuation"]}
+                          for r, c in zip(rows, conts)])
+        print(f"eval completions: {len(conts)} -> {out}")
+
+
+if __name__ == "__main__":
+    main()
+== build_mixed_corpus.py
+106 src/build_mixed_corpus.py
+#!/usr/bin/env python3
+"""Build a ratio-mixed training corpus for Phase 5.3.
+
+Holds total chunk count constant at every ratio so optimizer steps are
+constant across the grid: severity is attributable to composition, not to
+training amount. Sampling is line-level and therefore schema-agnostic.
+
+  n_synth = ceil(ratio * N)      from synthetic_corpus.jsonl of generation g-1
+  n_real  = N - n_synth          from the frozen fresh real slice g (5.2's)
+"""
+import argparse, hashlib, json, math, random, sys, time
+from pathlib import Path
+
+
+def md5(path):
+    h = hashlib.md5()
+    with open(path, "rb") as f:
+        for blk in iter(lambda: f.read(1 << 20), b""):
+            h.update(blk)
+    return h.hexdigest()
+
+
+def read_lines(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return [ln for ln in (l.rstrip("\n") for l in f) if ln.strip()]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--real-slice", required=True, type=Path)
+    ap.add_argument("--synth-corpus", required=True, type=Path)
+    ap.add_argument("--ratio", required=True, type=float, help="synthetic fraction in [0,1]")
+    ap.add_argument("--seed", required=True, type=int)
+    ap.add_argument("--gen", required=True, type=int)
+    ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--expect-chunks", required=True, type=int)
+    ap.add_argument("--manifest", type=Path, default=None)
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--force", action="store_true")
+    a = ap.parse_args()
+
+    if not 0.0 <= a.ratio <= 1.0:
+        sys.exit(f"CANARY FAIL: ratio {a.ratio} outside [0,1]")
+    if a.out.exists() and not (a.force or a.dry_run):
+        sys.exit(f"CANARY FAIL: {a.out} exists; pass --force to overwrite")
+
+    N = a.expect_chunks
+    n_synth = math.ceil(a.ratio * N)          # synthetic rounds up
+    n_real = N - n_synth                       # real takes the remainder
+
+    real = read_lines(a.real_slice) if n_real else []
+    synth = read_lines(a.synth_corpus) if n_synth else []
+
+    if n_real and len(real) < n_real:
+        sys.exit(f"CANARY FAIL: real slice has {len(real)} chunks, need {n_real}")
+    if n_synth and len(synth) < n_synth:
+        sys.exit(f"CANARY FAIL: synth corpus has {len(synth)} chunks, need {n_synth}")
+
+    # Frozen, composition-specific stream: same (gen, seed, ratio) -> same draw.
+    rng = random.Random(f"5.3|{a.gen}|{a.seed}|{a.ratio:.4f}")
+    mixed = (rng.sample(real, n_real) if n_real else []) + \
+            (rng.sample(synth, n_synth) if n_synth else [])
+    rng.shuffle(mixed)
+
+    if len(mixed) != N:
+        sys.exit(f"CANARY FAIL: assembled {len(mixed)} chunks, expected {N}")
+    for i, ln in enumerate(mixed[:200]):
+        try:
+            json.loads(ln)
+        except Exception as e:
+            sys.exit(f"CANARY FAIL: line {i} is not valid JSON: {e}")
+
+    print(f"ratio={a.ratio:.2f}  gen={a.gen}  seed={a.seed}  "
+          f"total={N}  synth={n_synth}  real={n_real}")
+    print(f"  real src  {a.real_slice}  ({len(real)} chunks)")
+    print(f"  synth src {a.synth_corpus} ({len(synth)} chunks)")
+    if a.dry_run:
+        print("DRY RUN — nothing written")
+        return
+
+    a.out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = a.out.with_suffix(a.out.suffix + ".tmp")
+    tmp.write_text("\n".join(mixed) + "\n", encoding="utf-8")
+    written = sum(1 for _ in open(tmp, encoding="utf-8"))
+    if written != N:
+        tmp.unlink()
+        sys.exit(f"CANARY FAIL: wrote {written} lines, expected {N}")
+    tmp.replace(a.out)
+
+    out_md5 = md5(a.out)
+    print(f"WROTE {a.out}  lines={written}  md5={out_md5}")
+
+    if a.manifest:
+        row = "\t".join(map(str, [
+            time.strftime("%Y-%m-%dT%H:%M:%S"), a.gen, a.seed, f"{a.ratio:.2f}",
+            N, n_synth, n_real, a.out, out_md5,
+            a.real_slice, md5(a.real_slice) if n_real else "-",
+            a.synth_corpus, md5(a.synth_corpus) if n_synth else "-",
+        ]))
+        with open(a.manifest, "a", encoding="utf-8") as f:
+            f.write(row + "\n")
+        print(f"manifest += {a.manifest}")
+
+
+if __name__ == "__main__":
+    main()
+== what finetune trains on
+1:"""Fine-tune the BASE model on a given corpus (real for gen 0, synthetic for gen >= 1).
+4:Drayson et al. (SIGMA's 'data-only recursion' regime). The corpus is the only thing that
+16:from util import load_config, set_seed, gen_dir, read_jsonl, offline_ok
+23:    ap.add_argument("--corpus", required=True, help="jsonl with a 'text' field")
+51:    rows = read_jsonl(args.corpus)
+== mix tree gen dir contents
+total 2822
+drwxr-x---. 4 cyrh cyrh   25600 Sep 16 00:40 .
+drwxr-x---. 9 cyrh cyrh   25600 Sep 16 02:03 ..
+drwxr-x---. 3 cyrh cyrh   25600 Sep 16 00:34 benchmarks
+-rw-r-----. 1 cyrh cyrh  994943 Sep 16 00:30 eval_completions.jsonl
+-rw-r-----. 1 cyrh cyrh     669 Sep 18 04:47 metrics.json
+drwxr-x---. 2 cyrh cyrh   25600 Sep 16 00:30 model
+-rw-r-----. 1 cyrh cyrh 9799334 Sep 16 00:40 synthetic_corpus.jsonl
+== round-trip + length probe (CPU, tokenizer only)
+len histogram: [(128, 497), (131, 1), (126, 1), (127, 1)]
+n != 128: 3 of 500
+null len histogram: [(128, 500)]

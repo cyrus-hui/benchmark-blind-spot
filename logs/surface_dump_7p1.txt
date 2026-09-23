@@ -1,0 +1,504 @@
+== HEAD
+5c90776
+?? download.log
+?? figures/fig7_abruptness.pdf.bak
+?? figures/fig8_acc_vs_accnorm.pdf.bak
+?? gather_entropy.py.bak
+?? install_0922.sh
+?? logs/5p4_controls.log
+?? logs/5p4_transfer.log
+?? logs/control/
+?? logs/greedy_eval/
+?? logs/misc/build_fresh_slices_2026-09-12.log
+?? logs/mix53/
+?? logs/ood_array/ood_array-2991984_146.out
+?? logs/ood_array/ood_array-3005984_147.out
+?? logs/ood_array/ood_array-3005984_148.out
+?? logs/ood_array/ood_array-3005984_149.out
+?? logs/ood_array/ood_array-3005984_150.out
+?? logs/ood_array/ood_array-3005984_151.out
+?? logs/ood_array/ood_array-3005984_152.out
+?? logs/ood_array/ood_array-3005984_153.out
+?? logs/ood_array/ood_array-3005984_154.out
+== md5 of Sept 22 logs (open item 1)
+c37bb00a20f05ef4dfd0fcf605ebf165  logs/5p4_dslope_sensitivity.log
+986eeee502708881c8d0dff0d7ab0a93  logs/5p4_gen1_margins.log
+b970689cb25e7e52c9540a40ac25af80  logs/5p4_loo_tau.log
+== perplexity()
+25:def perplexity(model, tok, texts, block_size, batch_size=32):
+26-    """Mean PPL over fixed-size chunks (exp of mean token NLL)."""
+27-    nlls, ntok = [], 0
+28-    for i in range(0, len(texts), batch_size):
+29-        enc = tok(texts[i:i + batch_size], return_tensors="pt", padding=True,
+30-                  truncation=True, max_length=block_size).to(model.device)
+31-        out = model(**enc, labels=enc["input_ids"])
+32-        # recompute summed NLL properly per batch
+33-        logits = out.logits[:, :-1]
+34-        labels = enc["input_ids"][:, 1:]
+35-        mask = enc["attention_mask"][:, 1:].bool()
+36-        nll = torch.nn.functional.cross_entropy(
+37-            logits.reshape(-1, logits.size(-1)).float(),
+38-            labels.reshape(-1), reduction="none").reshape(labels.shape)
+39-        nlls.append(nll[mask].sum().item())
+40-        ntok += mask.sum().item()
+41-    return float(np.exp(sum(nlls) / ntok))
+42-
+43-
+44-def distinct_n(texts, n=2):
+45-    total, uniq = 0, set()
+46-    for t in texts:
+47-        toks = t.split()
+48-        grams = list(zip(*[toks[i:] for i in range(n)]))
+49-        total += len(grams)
+50-        uniq.update(grams)
+51-    return len(uniq) / max(total, 1)
+52-
+53-
+54-def embedding_variance(texts, sbert_name, dev):
+55-    from sentence_transformers import SentenceTransformer
+56-    m = SentenceTransformer(sbert_name, device=dev)
+57-    emb = m.encode(texts, batch_size=128, show_progress_bar=False,
+58-                   normalize_embeddings=True)
+59-    return float(np.trace(np.cov(emb.T)))
+60-
+61-
+62-def kl_unigram(human_texts, model_texts, tok, eps=1e-9):
+63-    """KL(P_human || Q_model) over the tokenizer vocab, additive smoothing."""
+64-    def dist(texts):
+65-        c = Counter()
+66-        for t in texts:
+67-            c.update(tok(t, return_tensors=None)["input_ids"])
+68-        v = np.full(len(tok), eps)
+69-        for k, n in c.items():
+70-            v[k] += n
+== score_ood_ppl.py
+101 src/score_ood_ppl.py
+#!/usr/bin/env python3
+"""PPL-only re-score: in-domain + two OOD slices, merged into existing metrics.json.
+Loads the saved gen-g model, computes 3 perplexities, leaves all other metrics intact.
+Reuses perplexity() from metrics.py so numbers are identical to the main pipeline.
+"""
+import argparse, json
+from pathlib import Path
+
+import numpy as np
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from util import load_config, set_seed, gen_dir, read_jsonl, device, offline_ok
+from metrics import perplexity
+
+PPL_SLICES = (
+    ("perplexity",            "real_test.jsonl"),
+    ("perplexity_ood_c4",     "ood_c4_test.jsonl"),
+    ("perplexity_ood_ccnews", "ood_ccnews_test.jsonl"),
+    ("perplexity_ood_wiki",   "ood_wiki_test.jsonl"),
+)
+
+
+@torch.no_grad()
+def ppl_and_sharpness(model, tok, texts, block_size, batch_size=32):
+    # Verbatim mirror of metrics.perplexity(), plus mean token entropy (nats)
+    # and mean top-1 probability from the same logits. Same mask, same positions.
+    nlls, ents, tops, ntok = [], [], [], 0
+    for i in range(0, len(texts), batch_size):
+        enc = tok(texts[i:i + batch_size], return_tensors="pt", padding=True,
+                  truncation=True, max_length=block_size).to(model.device)
+        out = model(**enc, labels=enc["input_ids"])
+        logits = out.logits[:, :-1]
+        labels = enc["input_ids"][:, 1:]
+        mask = enc["attention_mask"][:, 1:].bool()
+        flat = logits.reshape(-1, logits.size(-1)).float()
+        nll = torch.nn.functional.cross_entropy(
+            flat, labels.reshape(-1), reduction="none").reshape(labels.shape)
+        nlls.append(nll[mask].sum().item())
+        m = mask.reshape(-1)
+        for j in range(0, flat.size(0), 2048):
+            sl = slice(j, min(j + 2048, flat.size(0)))
+            mj = m[sl]
+            if not mj.any():
+                continue
+            lp = torch.log_softmax(flat[sl][mj], dim=-1)
+            ents.append((-(lp.exp() * lp).sum(-1)).sum().item())
+            tops.append(lp.max(-1).values.exp().sum().item())
+        ntok += mask.sum().item()
+    return (float(np.exp(sum(nlls) / ntok)),
+            float(sum(ents) / ntok),
+            float(sum(tops) / ntok))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--generation", type=int, required=True)
+    ap.add_argument("--seed", type=int, default=None)
+    args = ap.parse_args()
+
+    cfg = load_config(args.config)
+    seed = args.seed if args.seed is not None else cfg["seed"]
+    set_seed(seed)
+    offline_ok()
+
+    gd = gen_dir(cfg, args.generation, seed)
+    root = Path(cfg["paths"]["workdir"]) / cfg["run_name"]
+    dev = device()
+    bs = cfg["data"]["block_size"]
+
+    tok = AutoTokenizer.from_pretrained(gd / "model", local_files_only=True)
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    model = AutoModelForCausalLM.from_pretrained(
+        gd / "model", local_files_only=True, torch_dtype=torch.bfloat16).to(dev).eval()
+
+    prevm = gd / "metrics.json"
+    prev = json.loads(prevm.read_text()) if prevm.exists() else {}
+    add = {}
+    for tag, fname in PPL_SLICES:
+        texts = [r["text"] for r in read_jsonl(root / fname)]
+        print(f"{tag} ({len(texts)} chunks)...")
+        ppl, ent, top1 = ppl_and_sharpness(model, tok, texts, bs)
+        add[tag] = ppl
+        add[tag.replace("perplexity", "entropy")] = ent
+        add[tag.replace("perplexity", "top1_prob")] = top1
+        if tag in prev:
+            print(f"  PPL check: new {ppl:.6f} vs stored {prev[tag]:.6f} "
+                  f"(delta {ppl - prev[tag]:+.6f})")
+    del model; torch.cuda.empty_cache()
+
+    out = gd / "metrics.json"
+    existing = json.loads(out.read_text()) if out.exists() else {}
+    existing.update(add)
+    out.write_text(json.dumps(existing, indent=2))
+    print(json.dumps(add, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+== build_gen_kwargs + corpus mode
+./src/generate.py
+24:def build_gen_kwargs(cfg):
+25-    d = cfg["decoding"]
+26-    kw = dict(do_sample=True, temperature=d["temperature"],
+27-              max_new_tokens=d["max_new_tokens"])
+28-    if d["strategy"] == "top_k":
+29-        kw["top_k"] = d["top_k"]
+30-    elif d["strategy"] == "nucleus":
+31-        kw["top_p"] = d["top_p"]; kw["top_k"] = 0
+32-    elif d["strategy"] == "temperature":
+33-        kw["top_k"] = 0; kw["top_p"] = 1.0
+34-    elif d["strategy"] == "greedy":
+35-        kw = dict(do_sample=False, max_new_tokens=d["max_new_tokens"])
+36-    else:
+37-        raise ValueError(f"unknown decoding strategy {d['strategy']}")
+38-    return kw
+39-
+40-
+41-@torch.no_grad()
+42-def batched_generate(model, tok, prompts, gen_kwargs, batch_size=64):
+43-    outs = []
+44-    for i in range(0, len(prompts), batch_size):
+45-        batch = prompts[i:i + batch_size]
+46-        enc = tok(batch, return_tensors="pt", padding=True, truncation=True,
+47-                  max_length=256).to(model.device)
+48-        ids = model.generate(**enc, **gen_kwargs, pad_token_id=tok.pad_token_id)
+49-        new = ids[:, enc["input_ids"].shape[1]:]
+50-        outs.extend(tok.batch_decode(new, skip_special_tokens=True))
+51-        if (i // batch_size) % 10 == 0:
+52-            print(f"  {i + len(batch)}/{len(prompts)}")
+53-    return outs
+54-
+55-
+56-def main():
+57-    ap = argparse.ArgumentParser()
+58-    ap.add_argument("--config", required=True)
+59-    ap.add_argument("--generation", type=int, required=True, help="model generation g")
+src/build_mixed_corpus.py:8:  n_synth = ceil(ratio * N)      from synthetic_corpus.jsonl of generation g-1
+src/util.py:29:    """Directory for one generation's artifacts: model/, corpus.jsonl, eval/, metrics.json"""
+src/generate.py:3:  --mode corpus : synthetic TRAINING corpus for generation g+1. Prompts are the first
+src/generate.py:60:    ap.add_argument("--mode", choices=["corpus", "eval"], required=True)
+src/generate.py:83:    if args.mode == "corpus":
+src/generate.py:90:            src_rows = read_jsonl(gen_dir(cfg, args.generation - 1, seed) / "synthetic_corpus.jsonl")
+src/generate.py:97:        out = gd / "synthetic_corpus.jsonl"
+src/finetune.py:1:"""Fine-tune the BASE model on a given corpus (real for gen 0, synthetic for gen >= 1).
+== configs
+control_gpt2m_greedyeval.yaml
+control_gpt2m.yaml
+control_smollm2.yaml
+gpt2m_greedy.yaml
+gpt2m_nucleus.yaml
+mix25_greedy.yaml
+mix25_topk.yaml
+mix50_greedy.yaml
+mix50_topk.yaml
+mix75_greedy.yaml
+mix75_topk.yaml
+pilot_gpt2m.yaml
+smollm2_1.7b.yaml
+smollm2_greedy.yaml
+configs/control_gpt2m_greedyeval.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/control_gpt2m_greedyeval.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/control_gpt2m_greedyeval.yaml:run_name: control_gpt2m_greedyeval
+configs/control_gpt2m_greedyeval.yaml:  block_size: 128                 # tokens per training chunk
+configs/control_gpt2m_greedyeval.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/control_gpt2m_greedyeval.yaml:  strategy: greedy
+configs/control_gpt2m_greedyeval.yaml:  top_k: 50                       # unused: greedy branch discards kwargs
+configs/control_gpt2m_greedyeval.yaml:  top_p: null                     # unused under greedy
+configs/control_gpt2m_greedyeval.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/control_gpt2m_greedyeval.yaml:  warmup_ratio: 0.03
+configs/control_gpt2m_greedyeval.yaml:  bf16: true
+configs/control_gpt2m_greedyeval.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/control_gpt2m_greedyeval.yaml:  eval_max_new_tokens: 96
+configs/control_gpt2m.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/control_gpt2m.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/control_gpt2m.yaml:run_name: control_gpt2m
+configs/control_gpt2m.yaml:  block_size: 128                 # tokens per training chunk
+configs/control_gpt2m.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/control_gpt2m.yaml:  strategy: top_k
+configs/control_gpt2m.yaml:  top_k: 50
+configs/control_gpt2m.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for that ablation
+configs/control_gpt2m.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/control_gpt2m.yaml:  warmup_ratio: 0.03
+configs/control_gpt2m.yaml:  bf16: true
+configs/control_gpt2m.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/control_gpt2m.yaml:  eval_max_new_tokens: 96
+configs/control_smollm2.yaml:# Phase 5.2 NEGATIVE CONTROL at 1.7B — SmolLM2-1.7B, fresh real slices each generation.
+configs/control_smollm2.yaml:# Clone of smollm2_1.7b.yaml. ONLY run_name differs; every training, decoding and eval
+configs/control_smollm2.yaml:# field is identical, because the manipulated variable is synthetic-vs-real and nothing else.
+configs/control_smollm2.yaml:run_name: control_smollm2
+configs/control_smollm2.yaml:  block_size: 128
+configs/control_smollm2.yaml:  strategy: top_k
+configs/control_smollm2.yaml:  top_k: 50
+configs/control_smollm2.yaml:  top_p: null
+configs/control_smollm2.yaml:  max_new_tokens: 96
+configs/control_smollm2.yaml:  warmup_ratio: 0.03
+configs/control_smollm2.yaml:  bf16: true
+configs/control_smollm2.yaml:  eval_max_new_tokens: 96
+configs/gpt2m_greedy.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/gpt2m_greedy.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/gpt2m_greedy.yaml:run_name: gpt2m_greedy
+configs/gpt2m_greedy.yaml:  block_size: 128                 # tokens per training chunk
+configs/gpt2m_greedy.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/gpt2m_greedy.yaml:  strategy: greedy
+configs/gpt2m_greedy.yaml:  top_k: 50                       # unused: greedy branch discards kwargs
+configs/gpt2m_greedy.yaml:  top_p: null                     # unused under greedy
+configs/gpt2m_greedy.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/gpt2m_greedy.yaml:  warmup_ratio: 0.03
+configs/gpt2m_greedy.yaml:  bf16: true
+configs/gpt2m_greedy.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/gpt2m_greedy.yaml:  eval_max_new_tokens: 96
+configs/gpt2m_nucleus.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/gpt2m_nucleus.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/gpt2m_nucleus.yaml:run_name: gpt2m_nucleus
+configs/gpt2m_nucleus.yaml:  block_size: 128                 # tokens per training chunk
+configs/gpt2m_nucleus.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/gpt2m_nucleus.yaml:  strategy: nucleus
+configs/gpt2m_nucleus.yaml:  top_k: 0                        # nucleus branch overrides to 0 anyway
+configs/gpt2m_nucleus.yaml:  top_p: 0.95
+configs/gpt2m_nucleus.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/gpt2m_nucleus.yaml:  warmup_ratio: 0.03
+configs/gpt2m_nucleus.yaml:  bf16: true
+configs/gpt2m_nucleus.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/gpt2m_nucleus.yaml:  eval_max_new_tokens: 96
+configs/mix25_greedy.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix25_greedy.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix25_greedy.yaml:run_name: mix25_greedy
+configs/mix25_greedy.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix25_greedy.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix25_greedy.yaml:  strategy: greedy
+configs/mix25_greedy.yaml:  top_k: 50                       # unused: greedy branch discards kwargs
+configs/mix25_greedy.yaml:  top_p: null                     # unused under greedy
+configs/mix25_greedy.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix25_greedy.yaml:  warmup_ratio: 0.03
+configs/mix25_greedy.yaml:  bf16: true
+configs/mix25_greedy.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix25_greedy.yaml:  eval_max_new_tokens: 96
+configs/mix25_greedy.yaml:# derived from configs/gpt2m_greedy.yaml; only run_name and these keys differ
+configs/mix25_greedy.yaml:mix_ratio: 0.25
+configs/mix25_greedy.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix25_greedy.yaml:mix_expect_chunks: 18686
+configs/mix25_topk.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix25_topk.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix25_topk.yaml:run_name: mix25_topk
+configs/mix25_topk.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix25_topk.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix25_topk.yaml:  strategy: top_k
+configs/mix25_topk.yaml:  top_k: 50
+configs/mix25_topk.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for that ablation
+configs/mix25_topk.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix25_topk.yaml:  warmup_ratio: 0.03
+configs/mix25_topk.yaml:  bf16: true
+configs/mix25_topk.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix25_topk.yaml:  eval_max_new_tokens: 96
+configs/mix25_topk.yaml:# derived from configs/pilot_gpt2m.yaml; only run_name and these keys differ
+configs/mix25_topk.yaml:mix_ratio: 0.25
+configs/mix25_topk.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix25_topk.yaml:mix_expect_chunks: 18686
+configs/mix50_greedy.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix50_greedy.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix50_greedy.yaml:run_name: mix50_greedy
+configs/mix50_greedy.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix50_greedy.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix50_greedy.yaml:  strategy: greedy
+configs/mix50_greedy.yaml:  top_k: 50                       # unused: greedy branch discards kwargs
+configs/mix50_greedy.yaml:  top_p: null                     # unused under greedy
+configs/mix50_greedy.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix50_greedy.yaml:  warmup_ratio: 0.03
+configs/mix50_greedy.yaml:  bf16: true
+configs/mix50_greedy.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix50_greedy.yaml:  eval_max_new_tokens: 96
+configs/mix50_greedy.yaml:# derived from configs/gpt2m_greedy.yaml; only run_name and these keys differ
+configs/mix50_greedy.yaml:mix_ratio: 0.50
+configs/mix50_greedy.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix50_greedy.yaml:mix_expect_chunks: 18686
+configs/mix50_topk.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix50_topk.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix50_topk.yaml:run_name: mix50_topk
+configs/mix50_topk.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix50_topk.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix50_topk.yaml:  strategy: top_k
+configs/mix50_topk.yaml:  top_k: 50
+configs/mix50_topk.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for that ablation
+configs/mix50_topk.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix50_topk.yaml:  warmup_ratio: 0.03
+configs/mix50_topk.yaml:  bf16: true
+configs/mix50_topk.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix50_topk.yaml:  eval_max_new_tokens: 96
+configs/mix50_topk.yaml:# derived from configs/pilot_gpt2m.yaml; only run_name and these keys differ
+configs/mix50_topk.yaml:mix_ratio: 0.50
+configs/mix50_topk.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix50_topk.yaml:mix_expect_chunks: 18686
+configs/mix75_greedy.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix75_greedy.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix75_greedy.yaml:run_name: mix75_greedy
+configs/mix75_greedy.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix75_greedy.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix75_greedy.yaml:  strategy: greedy
+configs/mix75_greedy.yaml:  top_k: 50                       # unused: greedy branch discards kwargs
+configs/mix75_greedy.yaml:  top_p: null                     # unused under greedy
+configs/mix75_greedy.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix75_greedy.yaml:  warmup_ratio: 0.03
+configs/mix75_greedy.yaml:  bf16: true
+configs/mix75_greedy.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix75_greedy.yaml:  eval_max_new_tokens: 96
+configs/mix75_greedy.yaml:# derived from configs/gpt2m_greedy.yaml; only run_name and these keys differ
+configs/mix75_greedy.yaml:mix_ratio: 0.75
+configs/mix75_greedy.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix75_greedy.yaml:mix_expect_chunks: 18686
+configs/mix75_topk.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/mix75_topk.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/mix75_topk.yaml:run_name: mix75_topk
+configs/mix75_topk.yaml:  block_size: 128                 # tokens per training chunk
+configs/mix75_topk.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/mix75_topk.yaml:  strategy: top_k
+configs/mix75_topk.yaml:  top_k: 50
+configs/mix75_topk.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for that ablation
+configs/mix75_topk.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/mix75_topk.yaml:  warmup_ratio: 0.03
+configs/mix75_topk.yaml:  bf16: true
+configs/mix75_topk.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/mix75_topk.yaml:  eval_max_new_tokens: 96
+configs/mix75_topk.yaml:# derived from configs/pilot_gpt2m.yaml; only run_name and these keys differ
+configs/mix75_topk.yaml:mix_ratio: 0.75
+configs/mix75_topk.yaml:mix_slice_fmt: /scratch/cyrh/collapse/fresh_slices_gpt2m/gen%d_real.jsonl
+configs/mix75_topk.yaml:mix_expect_chunks: 18686
+configs/pilot_gpt2m.yaml:# Pilot configuration — GPT-2 Medium on WikiText-2
+configs/pilot_gpt2m.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/pilot_gpt2m.yaml:run_name: pilot_gpt2m
+configs/pilot_gpt2m.yaml:  block_size: 128                 # tokens per training chunk
+configs/pilot_gpt2m.yaml:  prompt_len: 32                  # prefix tokens used to condition synthetic generation
+configs/pilot_gpt2m.yaml:  strategy: top_k
+configs/pilot_gpt2m.yaml:  top_k: 50
+configs/pilot_gpt2m.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for that ablation
+configs/pilot_gpt2m.yaml:  max_new_tokens: 96              # block_size - prompt_len
+configs/pilot_gpt2m.yaml:  warmup_ratio: 0.03
+configs/pilot_gpt2m.yaml:  bf16: true
+configs/pilot_gpt2m.yaml:  n_eval_prompts: 1000            # fixed prompt set, identical every generation
+configs/pilot_gpt2m.yaml:  eval_max_new_tokens: 96
+configs/smollm2_1.7b.yaml:# Main configuration — SmolLM2-1.7B on WikiText-2
+configs/smollm2_1.7b.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/smollm2_1.7b.yaml:run_name: smollm2_1.7b
+configs/smollm2_1.7b.yaml:  block_size: 128                 # UNCHANGED from GPT-2 — comparability requires identical
+configs/smollm2_1.7b.yaml:  prompt_len: 32                  # UNCHANGED — same prefix length for generation
+configs/smollm2_1.7b.yaml:  strategy: top_k
+configs/smollm2_1.7b.yaml:  top_k: 50
+configs/smollm2_1.7b.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for nucleus ablation
+configs/smollm2_1.7b.yaml:  max_new_tokens: 96              # block_size - prompt_len; UNCHANGED
+configs/smollm2_1.7b.yaml:  num_epochs: 3                   # UNCHANGED — same collapse pressure per generation
+configs/smollm2_1.7b.yaml:  warmup_ratio: 0.03              # UNCHANGED
+configs/smollm2_1.7b.yaml:  bf16: true                      # UNCHANGED — SmolLM2 released in bf16
+configs/smollm2_1.7b.yaml:  eval_max_new_tokens: 96         # UNCHANGED
+configs/smollm2_1.7b.yaml:  # Note: benchmark tasks and fewshot are driven by run_generation sbatch directly,
+configs/smollm2_greedy.yaml:# Main configuration — SmolLM2-1.7B on WikiText-2
+configs/smollm2_greedy.yaml:# Replace paradigm, restart-from-base each generation (Shumailov/Drayson regime)
+configs/smollm2_greedy.yaml:run_name: smollm2_greedy
+configs/smollm2_greedy.yaml:  block_size: 128                 # UNCHANGED from GPT-2 — comparability requires identical
+configs/smollm2_greedy.yaml:  prompt_len: 32                  # UNCHANGED — same prefix length for generation
+configs/smollm2_greedy.yaml:  strategy: greedy
+configs/smollm2_greedy.yaml:  top_k: 50
+configs/smollm2_greedy.yaml:  top_p: null                     # set 0.95 + strategy: nucleus for nucleus ablation
+configs/smollm2_greedy.yaml:  max_new_tokens: 96              # block_size - prompt_len; UNCHANGED
+configs/smollm2_greedy.yaml:  num_epochs: 3                   # UNCHANGED — same collapse pressure per generation
+configs/smollm2_greedy.yaml:  warmup_ratio: 0.03              # UNCHANGED
+configs/smollm2_greedy.yaml:  bf16: true                      # UNCHANGED — SmolLM2 released in bf16
+configs/smollm2_greedy.yaml:  eval_max_new_tokens: 96         # UNCHANGED
+configs/smollm2_greedy.yaml:  # Note: benchmark tasks and fewshot are driven by run_generation sbatch directly,
+== trees: gen dirs / model dirs / corpora
+control_gpt2m                            gens=28   models=28   corpora=0
+control_gpt2m_greedyeval                 gens=32   models=0    corpora=0
+control_smollm2                          gens=35   models=35   corpora=0
+fresh_slices_gpt2m                       gens=0    models=0    corpora=0
+gpt2m_greedy                             gens=24   models=24   corpora=24
+gpt2m_nucleus                            gens=0    models=0    corpora=0
+mix25_greedy                             gens=21   models=21   corpora=21
+mix25_topk                               gens=21   models=21   corpora=21
+mix50_greedy                             gens=21   models=21   corpora=21
+mix50_topk                               gens=21   models=21   corpora=21
+mix75_greedy                             gens=21   models=21   corpora=21
+mix75_topk                               gens=21   models=21   corpora=21
+pilot_gpt2m                              gens=35   models=35   corpora=35
+sigma                                    gens=0    models=0    corpora=0
+smollm2_1.7b                             gens=65   models=65   corpora=65
+smollm2_greedy                           gens=24   models=24   corpora=24
+== which gen dir holds which corpus
+/scratch/cyrh/collapse/gpt2m_greedy/seed43/gen0:
+total 3058
+drwxr-x---.  6 cyrh cyrh    25600 Aug 11 23:54 .
+drwxr-x---. 10 cyrh cyrh    25600 Aug  9 01:31 ..
+drwxr-x---.  3 cyrh cyrh    25600 Aug  8 23:53 benchmarks
+drwxr-x---.  3 cyrh cyrh    25600 Aug  9 05:28 benchmarks_arc
+drwxr-x---.  2 cyrh cyrh    25600 Aug 11 23:58 benchmarks_temp
+-rw-r-----.  1 cyrh cyrh  1014967 Aug  8 23:50 eval_completions.jsonl
+-rw-r-----.  1 cyrh cyrh      667 Aug  9 05:06 metrics.json
+drwxr-x---.  2 cyrh cyrh    25600 Aug  8 23:50 model
+-rw-r-----.  1 cyrh cyrh 10270869 Aug  8 23:59 synthetic_corpus.jsonl
+
+/scratch/cyrh/collapse/gpt2m_greedy/seed43/gen1:
+total 2871
+drwxr-x---.  5 cyrh cyrh    25600 Aug  9 05:28 .
+drwxr-x---. 10 cyrh cyrh    25600 Aug  9 01:31 ..
+drwxr-x---.  3 cyrh cyrh    25600 Aug  9 00:09 benchmarks
+drwxr-x---.  3 cyrh cyrh    25600 Aug  9 05:28 benchmarks_arc
+-rw-r-----.  1 cyrh cyrh  1005104 Aug  9 00:05 eval_completions.jsonl
+-rw-r-----.  1 cyrh cyrh      666 Aug  9 05:06 metrics.json
+drwxr-x---.  2 cyrh cyrh    25600 Aug  9 00:05 model
+-rw-r-----.  1 cyrh cyrh 10120874 Aug  9 00:15 synthetic_corpus.jsonl
+== corpus format + sizes
+/scratch/cyrh/collapse/gpt2m_greedy/seed43/gen0/synthetic_corpus.jsonl
+{"text": " = Valkyria Chronicles III = \n\n Senj\u014d no Valkyria 3 : Unrecorded Chronicles ( Japanese : \u6226\u5834\u306e\u30f4\u30a1\u30f3\u30d1\u30a4\u30a2 3 : \u30a6\u30a3\u30f3\u30c9\u30eb\u30af\u30ea\u30b9\u30bf\u30fc 3 : \u30a6\u30a3\u30f3\u30c9\u30eb\u30af\u30ea\u30b9\u30bf\u30fc ) is a third installment in the Valkyria Chronicles series . It was released for the PlayStation Portable in Japan on September 1 , 2011 . It was released for the PlayStation 3 and Xbox 360 in North America on September 1 , 2011 . It was released for the PlayStation Vita in Japan on September 1 , 2012 . It was released for"}
+{"text": " game and follows the \" Nameless \" , a penal military unit serving the
+   18686 /scratch/cyrh/collapse/gpt2m_greedy/seed43/gen0/synthetic_corpus.jsonl
+   18686 total
+18686 /scratch/cyrh/collapse/pilot_gpt2m/real_train.jsonl
+== 5.2 fresh slices
+/scratch/cyrh/collapse/control_gpt2m/ood_c4_test.jsonl
+/scratch/cyrh/collapse/control_gpt2m/real_test.jsonl
+/scratch/cyrh/collapse/control_gpt2m/ood_ccnews_test.jsonl
+/scratch/cyrh/collapse/control_gpt2m/ood_wiki_test.jsonl
+/scratch/cyrh/collapse/control_gpt2m/eval_prompts.jsonl
+/scratch/cyrh/collapse/control_gpt2m/real_train.jsonl
+== oldest checkpoint mtimes (purge risk)
+2026-06-13 /scratch/cyrh/collapse/pilot_gpt2m/seed42/gen0/model
+2026-06-14 /scratch/cyrh/collapse/pilot_gpt2m/seed42/gen1/model
+2026-06-14 /scratch/cyrh/collapse/pilot_gpt2m/seed42/gen2/model
+2026-06-15 /scratch/cyrh/collapse/pilot_gpt2m/seed43/gen0/model
+2026-06-15 /scratch/cyrh/collapse/pilot_gpt2m/seed44/gen0/model

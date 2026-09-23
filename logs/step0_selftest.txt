@@ -1,0 +1,25 @@
+OK   T1 greedy argmax 96/96 min=96
+OK   T1 greedy S<=0 max=-1.294e-03
+OK   T2 mask/offset vs per-prefix loop maxdiff=4.97e-08
+OK   T3 uniform q gives S=0 max|S|=4.77e-07
+OK   T4 top-k mean S < 0 mean=-0.0253
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 406.66it/s]
+OK   T5 synth K3 PASS t_synth: PASS kind=synth n_scored=16 n_excluded=1 argmax_match_rate=1.00000 k3_enforced=True 0.0s[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/28 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 28/28 [00:00<00:00, 9123.01it/s]
+
+OK   T5 exclusion of 129-token row 
+OK   T5 npz rows/S 
+OK   T5 refuses overwrite 
+OK   T5 mixed labelling t_mix: PASS kind=synth n_scored=8 n_excluded=0 argmax_match_rate=1.00000 k3_enforced=True 0.0s[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/28 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 28/28 [00:00<00:00, 8994.45it/s]
+
+OK   T5 mixed count mismatch refused 
+OK   T5 K3 FAIL on random text, no npz 
+OK   T5 null kind OK 
+OK   T5 canary writes json only 
+OK   T5 missing text key refused 
+SELF-TEST PASS 17/17

@@ -1,0 +1,210 @@
+== date 2026-09-23T01:17:08-04:00  head 5c90776
+
+== 1. untracked logs (§38/§42.1)
+  logs/surface_dump_7p1.txt         17K files=1     ignored=no
+  logs/surface_dump_7p1b.txt        21K files=1     ignored=no
+  logs/5p4_controls.log             13K files=1     ignored=no
+  logs/5p4_transfer.log             13K files=1     ignored=no
+  logs/mix53                        15M files=128   ignored=no
+  logs/control                     8.5M files=65    ignored=no
+  logs/greedy_eval                 1.1M files=32    ignored=no
+  untracked under logs/: 488
+
+== 2. mixed corpora and manifests (Sept 15 §3 says $RUN_ROOT/mixed/seed{S}/gen{G}.jsonl)
+  -- mix50_greedy
+     /scratch/cyrh/collapse/mix50_greedy/mixed/seed43
+     /scratch/cyrh/collapse/mix50_greedy/mixed/seed44
+     /scratch/cyrh/collapse/mix50_greedy/mixed/seed45
+     /scratch/cyrh/collapse/mix50_greedy/seed43
+     /scratch/cyrh/collapse/mix50_greedy/seed44
+     /scratch/cyrh/collapse/mix50_greedy/seed45
+     gen0: benchmarks
+     gen0: benchmarks_arc
+     gen0: benchmarks_temp
+     gen0: eval_completions.jsonl
+     gen0: metrics.json
+     gen0: model
+     gen0: synthetic_corpus.jsonl
+     manifest: 21 lines, md5 781962ea40cee213868f10b3fe880986
+       col      1	2026-09-16T00:25:02
+       col      2	1
+       col      3	43
+       col      4	0.50
+       col      5	18686
+       col      6	9343
+       col      7	9343
+       col      8	/scratch/cyrh/collapse/mix50_greedy/mixed/seed43/gen1.jsonl
+       col      9	7652b71945584057b25602a051bace3e
+       col     10	/scratch/cyrh/collapse/fresh_slices_gpt2m/gen1_real.jsonl
+       col     11	44de197303bd7c4db9bbdccc23b26b24
+       col     12	/scratch/cyrh/collapse/mix50_greedy/seed43/gen0/synthetic_corpus.jsonl
+       col     13	48154d298717ca4febffe014cbd7ce9a
+     s43 g1 rows=18686  md5=7652b71945584057b25602a051bace3e manifest=MATCH
+     s43 g2 rows=18686  md5=bd0048009b050b4e2a42fbd281a3f9f9 manifest=MATCH
+     s43 g3 rows=18686  md5=3a31835bf502ec53c0d2faaef613a4b5 manifest=MATCH
+     s43 g4 rows=18686  md5=3bde79702ec8d90214d0b2a0a9bff9eb manifest=MATCH
+     s44 g1 rows=18686  md5=4882ad7c64e107bb98e443423c45c1e9 manifest=MATCH
+     s44 g2 rows=18686  md5=7a47a38d1f78a01c17257d05316c9577 manifest=MATCH
+     s44 g3 rows=18686  md5=e902c8b7d47827c604af3e50fbbf72a7 manifest=MATCH
+     s44 g4 rows=18686  md5=ff0763376677d1e0effe47dddfcb85a7 manifest=MATCH
+     s45 g1 rows=18686  md5=21adc0d379295d2d133ab734940b7800 manifest=MATCH
+     s45 g2 rows=18686  md5=2447ae69f7f3d759afbcab9c0cc1350f manifest=MATCH
+     s45 g3 rows=18686  md5=5eb243d520b820e3af5f7392f7558bc9 manifest=MATCH
+     s45 g4 rows=18686  md5=2b441d81519d5e07954295ba8ae9dac0 manifest=MATCH
+  -- mix50_topk
+     /scratch/cyrh/collapse/mix50_topk/mixed/seed43
+     /scratch/cyrh/collapse/mix50_topk/mixed/seed44
+     /scratch/cyrh/collapse/mix50_topk/mixed/seed45
+     /scratch/cyrh/collapse/mix50_topk/seed43
+     /scratch/cyrh/collapse/mix50_topk/seed44
+     /scratch/cyrh/collapse/mix50_topk/seed45
+     gen0: benchmarks
+     gen0: benchmarks_arc
+     gen0: benchmarks_logsamples
+     gen0: benchmarks_temp
+     gen0: eval_completions.jsonl
+     gen0: metrics.json
+     gen0: model
+     gen0: synthetic_corpus.jsonl
+     gen0: temperature.json
+     manifest: 21 lines, md5 6ef8326fbfe4ac8ab3fc2350b9f87991
+       col      1	2026-09-16T00:25:02
+       col      2	1
+       col      3	44
+       col      4	0.50
+       col      5	18686
+       col      6	9343
+       col      7	9343
+       col      8	/scratch/cyrh/collapse/mix50_topk/mixed/seed44/gen1.jsonl
+       col      9	3ab5a5eee35b4d82addc2288c3ad0fce
+       col     10	/scratch/cyrh/collapse/fresh_slices_gpt2m/gen1_real.jsonl
+       col     11	44de197303bd7c4db9bbdccc23b26b24
+       col     12	/scratch/cyrh/collapse/mix50_topk/seed44/gen0/synthetic_corpus.jsonl
+       col     13	ceb0ce559f96dee8d1ed83c622384b2d
+     s43 g1 rows=18686  md5=d94332288fd9e67529fe28dabc2efc53 manifest=MATCH
+     s43 g2 rows=18686  md5=29e14b841a1befdaab0485f7d3e83301 manifest=MATCH
+     s43 g3 rows=18686  md5=117dc34a288f6bd3a43dffeb597a5a61 manifest=MATCH
+     s43 g4 rows=18686  md5=c43f3dd3be35db11ce6ac8e2717b43c6 manifest=MATCH
+     s44 g1 rows=18686  md5=3ab5a5eee35b4d82addc2288c3ad0fce manifest=MATCH
+     s44 g2 rows=18686  md5=eb367b2abf1fa9d88f32f24bcc2eb6c8 manifest=MATCH
+     s44 g3 rows=18686  md5=6ea632d9d994ae77ed2f465e9e6d7d93 manifest=MATCH
+     s44 g4 rows=18686  md5=82d91487812cf7c64d098b4ea519c17c manifest=MATCH
+     s45 g1 rows=18686  md5=8a7157ef98fca595f1e52a747cce0795 manifest=MATCH
+     s45 g2 rows=18686  md5=c07071b0033506d41c2015a0c5aeb62d manifest=MATCH
+     s45 g3 rows=18686  md5=620deca89c161e4b3426258b9df54cce manifest=MATCH
+     s45 g4 rows=18686  md5=a1fd4fce46411142167de36353df8b18 manifest=MATCH
+
+== 3. gen-0 weights: own-seed scorer == generator (§40.7)
+  s42 pilot_gpt2m   257433f940444e443fb13cf910b90ea5  -> pilot_gpt2m/seed42/gen0/model/model.safetensors
+  s43 pilot_gpt2m   8c5ce4e0ebc09c55d1680c94ea14e34f  -> pilot_gpt2m/seed43/gen0/model/model.safetensors
+  s43 gpt2m_greedy  8c5ce4e0ebc09c55d1680c94ea14e34f  -> gpt2m_greedy/seed43/gen0/model/model.safetensors
+  s43 mix50_greedy  8c5ce4e0ebc09c55d1680c94ea14e34f  -> gpt2m_greedy/seed43/gen0/model/model.safetensors
+  s43 mix50_topk    8c5ce4e0ebc09c55d1680c94ea14e34f  -> pilot_gpt2m/seed43/gen0/model/model.safetensors
+  s44 pilot_gpt2m   8135e82d47fd70d0ee19ad8964e0ffd4  -> pilot_gpt2m/seed44/gen0/model/model.safetensors
+  s44 gpt2m_greedy  8135e82d47fd70d0ee19ad8964e0ffd4  -> gpt2m_greedy/seed44/gen0/model/model.safetensors
+  s44 mix50_greedy  8135e82d47fd70d0ee19ad8964e0ffd4  -> gpt2m_greedy/seed44/gen0/model/model.safetensors
+  s44 mix50_topk    8135e82d47fd70d0ee19ad8964e0ffd4  -> pilot_gpt2m/seed44/gen0/model/model.safetensors
+  s45 pilot_gpt2m   784b949322ac78450b20e60fec2b1bb5  -> pilot_gpt2m/seed45/gen0/model/model.safetensors
+  s45 gpt2m_greedy  784b949322ac78450b20e60fec2b1bb5  -> gpt2m_greedy/seed45/gen0/model/model.safetensors
+  s45 mix50_greedy  784b949322ac78450b20e60fec2b1bb5  -> gpt2m_greedy/seed45/gen0/model/model.safetensors
+  s45 mix50_topk    784b949322ac78450b20e60fec2b1bb5  -> pilot_gpt2m/seed45/gen0/model/model.safetensors
+  s46 pilot_gpt2m   5b74b59067935c9c2016fe1c184a269a  -> pilot_gpt2m/seed46/gen0/model/model.safetensors
+  pilot s43 gen0 model dir: config.json
+  pilot s43 gen0 model dir: generation_config.json
+  pilot s43 gen0 model dir: model.safetensors
+  pilot s43 gen0 model dir: tokenizer_config.json
+  pilot s43 gen0 model dir: tokenizer.json
+
+== 4. inventory: synthetic_corpus.jsonl and model per gen 0-3
+  gpt2m_greedy  s43  g0:CM g1:CM g2:CM g3:CM
+  gpt2m_greedy  s44  g0:CM g1:CM g2:CM g3:CM
+  gpt2m_greedy  s45  g0:CM g1:CM g2:CM g3:CM
+  pilot_gpt2m   s43  g0:CM g1:CM g2:CM g3:CM
+  pilot_gpt2m   s44  g0:CM g1:CM g2:CM g3:CM
+  pilot_gpt2m   s45  g0:CM g1:CM g2:CM g3:CM
+  pilot_gpt2m   s46  g0:CM g1:CM g2:CM g3:CM
+  mix50_greedy  s43  g0:CM g1:CM g2:CM g3:CM
+  mix50_greedy  s44  g0:CM g1:CM g2:CM g3:CM
+  mix50_greedy  s45  g0:CM g1:CM g2:CM g3:CM
+  mix50_topk    s43  g0:CM g1:CM g2:CM g3:CM
+  mix50_topk    s44  g0:CM g1:CM g2:CM g3:CM
+  mix50_topk    s45  g0:CM g1:CM g2:CM g3:CM
+  fresh gen1 rows=18686 md5=44de197303bd7c4db9bbdccc23b26b24
+  fresh gen2 rows=18686 md5=8dd21c423e2789f1c7bf10682452896c
+  fresh gen3 rows=18686 md5=3fbcca9d0dc51f2cd2b3786ab8b983af
+  fresh gen4 rows=18686 md5=c96fb198d2521ff4c222a5065b300b88
+
+== 5. row format and mixed-corpus labels by membership
+  keys gpt2m_greedy/seed43/gen0/synthetic_corpus.jsonl: {'text': 'str'}
+  keys pilot_gpt2m/seed43/gen0/synthetic_corpus.jsonl: {'text': 'str'}
+  keys fresh_slices_gpt2m/gen1_real.jsonl: {'text': 'str'}
+  keys mix50_greedy/mixed/seed43/gen1.jsonl: {'text': 'str'}
+  tree          s  g  rows   real  synth  synth_in_ref  ref
+  mix50_greedy  43 1  18686   9343   9343         9343  mix50_greedy/seed43/gen0/synthetic_corpus.jsonl
+  mix50_greedy  43 2  18686   9343   9343         9343  mix50_greedy/seed43/gen1/synthetic_corpus.jsonl
+  mix50_greedy  43 3  18686   9343   9343         9343  mix50_greedy/seed43/gen2/synthetic_corpus.jsonl
+  mix50_greedy  43 4  18686   9343   9343         9343  mix50_greedy/seed43/gen3/synthetic_corpus.jsonl
+  mix50_greedy  44 1  18686   9343   9343         9343  mix50_greedy/seed44/gen0/synthetic_corpus.jsonl
+  mix50_greedy  44 2  18686   9343   9343         9343  mix50_greedy/seed44/gen1/synthetic_corpus.jsonl
+  mix50_greedy  44 3  18686   9343   9343         9343  mix50_greedy/seed44/gen2/synthetic_corpus.jsonl
+  mix50_greedy  44 4  18686   9343   9343         9343  mix50_greedy/seed44/gen3/synthetic_corpus.jsonl
+  mix50_greedy  45 1  18686   9343   9343         9343  mix50_greedy/seed45/gen0/synthetic_corpus.jsonl
+  mix50_greedy  45 2  18686   9343   9343         9343  mix50_greedy/seed45/gen1/synthetic_corpus.jsonl
+  mix50_greedy  45 3  18686   9343   9343         9343  mix50_greedy/seed45/gen2/synthetic_corpus.jsonl
+  mix50_greedy  45 4  18686   9343   9343         9343  mix50_greedy/seed45/gen3/synthetic_corpus.jsonl
+  mix50_topk    43 1  18686   9343   9343         9343  mix50_topk/seed43/gen0/synthetic_corpus.jsonl
+  mix50_topk    43 2  18686   9343   9343         9343  mix50_topk/seed43/gen1/synthetic_corpus.jsonl
+  mix50_topk    43 3  18686   9343   9343         9343  mix50_topk/seed43/gen2/synthetic_corpus.jsonl
+  mix50_topk    43 4  18686   9343   9343         9343  mix50_topk/seed43/gen3/synthetic_corpus.jsonl
+  mix50_topk    44 1  18686   9343   9343         9343  mix50_topk/seed44/gen0/synthetic_corpus.jsonl
+  mix50_topk    44 2  18686   9343   9343         9343  mix50_topk/seed44/gen1/synthetic_corpus.jsonl
+  mix50_topk    44 3  18686   9343   9343         9343  mix50_topk/seed44/gen2/synthetic_corpus.jsonl
+  mix50_topk    44 4  18686   9343   9343         9343  mix50_topk/seed44/gen3/synthetic_corpus.jsonl
+  mix50_topk    45 1  18686   9343   9343         9343  mix50_topk/seed45/gen0/synthetic_corpus.jsonl
+  mix50_topk    45 2  18686   9343   9343         9343  mix50_topk/seed45/gen1/synthetic_corpus.jsonl
+  mix50_topk    45 3  18686   9343   9343         9343  mix50_topk/seed45/gen2/synthetic_corpus.jsonl
+  mix50_topk    45 4  18686   9343   9343         9343  mix50_topk/seed45/gen3/synthetic_corpus.jsonl
+
+== 6. existing GPU scoring header and env (for the new sbatch)
+  #SBATCH --account=def-enaskt_gpu
+  #SBATCH --gpus-per-node=1
+  #SBATCH --cpus-per-task=2
+  #SBATCH --mem=24G
+  #SBATCH --time=0:30:00
+  #SBATCH --array=1-121%20
+  #SBATCH --output=logs/ood_array/ood_array-%A_%a.out
+       14 #SBATCH --gres=gpu:1
+  env| #!/bin/bash
+  env| # Source this before ANY pipeline command on Narval:  source scripts/narval_env.sh
+  env| # Works on both login and compute nodes.
+  env| 
+  env| module load StdEnv/2023 gcc/12.3 cuda/12.6 python/3.11 scipy-stack/2024a arrow/17.0.0 faiss/1.12.0
+  env| 
+  env| # Project venv (separate from pollution_route_pipeline)
+  env| VENV="$HOME/modelcollapse/venv"
+  env| if [ -d "$VENV" ]; then
+  env|     source "$VENV/bin/activate"
+  env| fi
+  env| 
+  env| # HF caches on scratch (matches your existing ~/.bash_profile, repeated here defensively)
+  env| export HF_HOME="$SCRATCH/hf_cache"
+  env| export TRANSFORMERS_CACHE="$SCRATCH/hf_cache/transformers"
+  env| export HF_DATASETS_CACHE="$SCRATCH/hf_cache/datasets"
+  env| 
+  env| # Compute nodes have NO outbound internet. Force offline so transformers/datasets/
+  env| # lm-eval never attempt a network call (which hangs, then kills the job at timeout).
+  env| # Login nodes: temporarily `unset` these when downloading.
+  env| export HF_HUB_OFFLINE=1
+  env| export TRANSFORMERS_OFFLINE=1
+  env| export HF_DATASETS_OFFLINE=1
+  env| 
+  env| # wandb cannot reach the internet from compute nodes — log offline, sync later.
+  env| export WANDB_MODE=offline
+  env| 
+  env| export TOKENIZERS_PARALLELISM=false
+
+== END
+inventory (seeds present): {'gpt2m_greedy': [43, 44, 45], 'pilot_gpt2m': [43, 44, 45, 46], 'mix50_greedy': [43, 44, 45], 'mix50_topk': [43, 44, 45]}
+tasks=138 {'synth': 104, 'canary': 18, 'null': 16} k3_enforced=24 scorer_seeds=[43, 44, 45, 46] cross={43: 44, 44: 45, 45: 46, 46: 43}
+task 1 = gpt2m_greedy_s43_c1_own
+manifest slurm/step0_manifest.tsv md5 2c04248378002ce6053893ba67178913  -> sbatch --array=1-138

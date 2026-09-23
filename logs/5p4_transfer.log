@@ -1,0 +1,22 @@
+registry md5 62d1254829994ab8b2f6dbb6b2edd047  pending []
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+
+first flagged generation at the 345M threshold (8 = not flagged by gen 7)
+  control_smollm2  dcal    8 8 8 8 8
+  control_smollm2  pinc    8 8 8 8 8
+  control_smollm2  pslope  6 2 2 6 2
+  smollm2_1.7b     dcal    1 1 1 1 1
+  smollm2_1.7b     pinc    4 4 4 4 4
+  smollm2_1.7b     pslope  2 2 2 2 2
+  smollm2_greedy   dcal    1 1 1
+  smollm2_greedy   pinc    1 1 1
+  smollm2_greedy   pslope  2 2 2
+SIGMA is not evaluated at 1.7B (n_k = 2000 there; the registered index set is 500 of 1000).
+RESULT OK

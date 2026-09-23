@@ -1,0 +1,126 @@
+3140787 mix25_topk s43 g1 
+3143221 mix25_topk s43 g2 
+3143222 mix25_topk s43 g3 afterok:3143221
+3143234 mix25_topk s43 g4 afterok:3143222
+3143235 mix25_topk s43 g5 afterok:3143234
+3143236 mix25_topk s43 g6 afterok:3143235
+3143237 mix25_topk s43 g7 afterok:3143236
+3143238 mix25_topk s44 g1 
+3143239 mix25_topk s44 g2 afterok:3143238
+3143240 mix25_topk s44 g3 afterok:3143239
+3143241 mix25_topk s44 g4 afterok:3143240
+3143242 mix25_topk s44 g5 afterok:3143241
+3143243 mix25_topk s44 g6 afterok:3143242
+3143244 mix25_topk s44 g7 afterok:3143243
+3143245 mix25_topk s45 g1 
+3143246 mix25_topk s45 g2 afterok:3143245
+3143247 mix25_topk s45 g3 afterok:3143246
+3143258 mix25_topk s45 g4 afterok:3143247
+3143261 mix25_topk s45 g5 afterok:3143258
+3143263 mix25_topk s45 g6 afterok:3143261
+3143265 mix25_topk s45 g7 afterok:3143263
+3143267 mix25_greedy s43 g1 
+3143269 mix25_greedy s43 g2 afterok:3143267
+3143270 mix25_greedy s43 g3 afterok:3143269
+3143272 mix25_greedy s43 g4 afterok:3143270
+3143273 mix25_greedy s43 g5 afterok:3143272
+3143274 mix25_greedy s43 g6 afterok:3143273
+3143275 mix25_greedy s43 g7 afterok:3143274
+3143276 mix25_greedy s44 g1 
+3143277 mix25_greedy s44 g2 afterok:3143276
+3143278 mix25_greedy s44 g3 afterok:3143277
+3143279 mix25_greedy s44 g4 afterok:3143278
+3143280 mix25_greedy s44 g5 afterok:3143279
+3143281 mix25_greedy s44 g6 afterok:3143280
+3143282 mix25_greedy s44 g7 afterok:3143281
+3143283 mix25_greedy s45 g1 
+3143284 mix25_greedy s45 g2 afterok:3143283
+3143285 mix25_greedy s45 g3 afterok:3143284
+3143286 mix25_greedy s45 g4 afterok:3143285
+3143287 mix25_greedy s45 g5 afterok:3143286
+3143288 mix25_greedy s45 g6 afterok:3143287
+3143289 mix25_greedy s45 g7 afterok:3143288
+3143290 mix50_topk s43 g1 
+3143291 mix50_topk s43 g2 afterok:3143290
+3143292 mix50_topk s43 g3 afterok:3143291
+3143293 mix50_topk s43 g4 afterok:3143292
+3143294 mix50_topk s43 g5 afterok:3143293
+3143295 mix50_topk s43 g6 afterok:3143294
+3143296 mix50_topk s43 g7 afterok:3143295
+3143297 mix50_topk s44 g1 
+3143298 mix50_topk s44 g2 afterok:3143297
+3143299 mix50_topk s44 g3 afterok:3143298
+3143300 mix50_topk s44 g4 afterok:3143299
+3143301 mix50_topk s44 g5 afterok:3143300
+3143302 mix50_topk s44 g6 afterok:3143301
+3143303 mix50_topk s44 g7 afterok:3143302
+3143304 mix50_topk s45 g1 
+3143305 mix50_topk s45 g2 afterok:3143304
+3143306 mix50_topk s45 g3 afterok:3143305
+3143307 mix50_topk s45 g4 afterok:3143306
+3143308 mix50_topk s45 g5 afterok:3143307
+3143309 mix50_topk s45 g6 afterok:3143308
+3143310 mix50_topk s45 g7 afterok:3143309
+3143311 mix50_greedy s43 g1 
+3143312 mix50_greedy s43 g2 afterok:3143311
+3143313 mix50_greedy s43 g3 afterok:3143312
+3143314 mix50_greedy s43 g4 afterok:3143313
+3143315 mix50_greedy s43 g5 afterok:3143314
+3143316 mix50_greedy s43 g6 afterok:3143315
+3143317 mix50_greedy s43 g7 afterok:3143316
+3143318 mix50_greedy s44 g1 
+3143319 mix50_greedy s44 g2 afterok:3143318
+3143320 mix50_greedy s44 g3 afterok:3143319
+3143321 mix50_greedy s44 g4 afterok:3143320
+3143322 mix50_greedy s44 g5 afterok:3143321
+3143323 mix50_greedy s44 g6 afterok:3143322
+3143324 mix50_greedy s44 g7 afterok:3143323
+3143325 mix50_greedy s45 g1 
+3143326 mix50_greedy s45 g2 afterok:3143325
+3143327 mix50_greedy s45 g3 afterok:3143326
+3143328 mix50_greedy s45 g4 afterok:3143327
+3143329 mix50_greedy s45 g5 afterok:3143328
+3143330 mix50_greedy s45 g6 afterok:3143329
+3143331 mix50_greedy s45 g7 afterok:3143330
+3143332 mix75_topk s43 g1 
+3143333 mix75_topk s43 g2 afterok:3143332
+3143334 mix75_topk s43 g3 afterok:3143333
+3143335 mix75_topk s43 g4 afterok:3143334
+3143336 mix75_topk s43 g5 afterok:3143335
+3143337 mix75_topk s43 g6 afterok:3143336
+3143338 mix75_topk s43 g7 afterok:3143337
+3143339 mix75_topk s44 g1 
+3143340 mix75_topk s44 g2 afterok:3143339
+3143341 mix75_topk s44 g3 afterok:3143340
+3143342 mix75_topk s44 g4 afterok:3143341
+3143343 mix75_topk s44 g5 afterok:3143342
+3143344 mix75_topk s44 g6 afterok:3143343
+3143345 mix75_topk s44 g7 afterok:3143344
+3143346 mix75_topk s45 g1 
+3143347 mix75_topk s45 g2 afterok:3143346
+3143348 mix75_topk s45 g3 afterok:3143347
+3143349 mix75_topk s45 g4 afterok:3143348
+3143350 mix75_topk s45 g5 afterok:3143349
+3143351 mix75_topk s45 g6 afterok:3143350
+3143352 mix75_topk s45 g7 afterok:3143351
+3143353 mix75_greedy s43 g1 
+3143356 mix75_greedy s43 g2 afterok:3143353
+3143357 mix75_greedy s43 g3 afterok:3143356
+3143358 mix75_greedy s43 g4 afterok:3143357
+3143360 mix75_greedy s43 g5 afterok:3143358
+3143361 mix75_greedy s43 g6 afterok:3143360
+3143362 mix75_greedy s43 g7 afterok:3143361
+3143363 mix75_greedy s44 g1 
+3143364 mix75_greedy s44 g2 afterok:3143363
+3143365 mix75_greedy s44 g3 afterok:3143364
+3143366 mix75_greedy s44 g4 afterok:3143365
+3143367 mix75_greedy s44 g5 afterok:3143366
+3143368 mix75_greedy s44 g6 afterok:3143367
+3143369 mix75_greedy s44 g7 afterok:3143368
+3143370 mix75_greedy s45 g1 
+3143371 mix75_greedy s45 g2 afterok:3143370
+3143372 mix75_greedy s45 g3 afterok:3143371
+3143373 mix75_greedy s45 g4 afterok:3143372
+3143374 mix75_greedy s45 g5 afterok:3143373
+3143375 mix75_greedy s45 g6 afterok:3143374
+3143376 mix75_greedy s45 g7 afterok:3143375

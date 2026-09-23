@@ -1,0 +1,21 @@
+registry md5 62d1254829994ab8b2f6dbb6b2edd047  pending []
+decoders with control completions and SIGMA records on disk: ['topk', 'greedy']
+PASS  tau dcal  recomputed +0.063474 vs registered 0.0635
+PASS  tau pinc  recomputed +0.074136 vs registered 0.0741
+PASS  tau pslope g2  recomputed +0.0019986 vs registered 0.002
+PASS  tau pslope g3  recomputed +0.0012443 vs registered 0.00124
+PASS  tau pslope g4  recomputed -0.0001767 vs registered -0.00018
+PASS  tau pslope g5  recomputed +0.0002066 vs registered 0.00021
+PASS  tau pslope g6  recomputed -0.0000822 vs registered -8e-05
+PASS  tau pslope g7  recomputed +0.0001811 vs registered 0.00018
+PASS  tau sigma topk sub  recomputed +7.24809 vs registered 7.248
+PASS  tau sigma topk full  recomputed +6.14784 vs registered 6.148
+PASS  tau outcome topk tau_D  recomputed +0.010500 vs registered 0.0105
+PASS  tau outcome topk tau_K  recomputed +0.111117 vs registered 0.1111
+PASS  tau sigma greedy sub  recomputed +11.00485 vs registered 11.005
+PASS  tau sigma greedy full  recomputed +6.13409 vs registered 6.134
+PASS  tau outcome greedy tau_D  recomputed +0.013679 vs registered 0.0137
+PASS  tau outcome greedy tau_K  recomputed +0.177527 vs registered 0.1775
+arms opened: ['control_gpt2m', 'control_gpt2m_greedyeval']
+PASS  only control arms were opened  
+RESULT OK
