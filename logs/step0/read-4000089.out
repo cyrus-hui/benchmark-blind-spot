@@ -1,0 +1,232 @@
+read job 4000089 head b5afaa9 node nc10138
+step0_analysis md5 35534eb0922bef3f16428814e944803f  manifest md5 400544322b55c1bcfb2c18ab39bb496e  head b5afaa94f046a9446a4feca31a85e6ffbd5cfd9b  boot 10000  m3_draws 200  mode READ
+
+synthetic-row exclusions by tree and scorer role (re-tokenization != 128):
+  gpt2m_greedy  cross   1594/ 224232 (0.71%)
+  gpt2m_greedy  own     1594/ 224232 (0.71%)
+  mix50_greedy  cross    795/ 112116 (0.71%)
+  mix50_greedy  own      795/ 112116 (0.71%)
+  mix50_topk    cross   4108/ 112116 (3.66%)
+  mix50_topk    own     4108/ 112116 (3.66%)
+  pilot_gpt2m   cross   9383/ 298976 (3.14%)
+  pilot_gpt2m   own     9383/ 298976 (3.14%)
+
+K1 seeds: {'greedy': [43, 44, 45], 'topk': [43, 44, 45, 46]}
+tasks: 104 synth, 16 null; all inputs present and consistent
+M3 tokenizer: loads, 50/50 scored rows re-tokenize to 128 for each decoder
+
+C1 mixed-corpus real rows vs null: 0 rows compared, max |dS| 0.00e+00 (tol 0.001)
+CANARIES PASS
+==============================================================================
+
+K1 — corpus training gen 1, r = 100, tail enrichment vs the null 10% (pooled over seeds)
+  greedy own   s43: n=18547 excl=139 tau=(-0.3659, +0.2682) lower 0.9989 upper 0.0000
+  greedy own   s44: n=18551 excl=135 tau=(-0.3628, +0.2710) lower 0.9990 upper 0.0000
+  greedy own   s45: n=18540 excl=146 tau=(-0.3642, +0.2705) lower 0.9988 upper 0.0000
+  greedy own   POOLED [registered ] n=55638 lower 0.9989 [0.9986, 0.9992]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  greedy own   POOLED [excl->lower] n=56058 lower 0.9989 [0.9986, 0.9992]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  greedy own   POOLED [excl->upper] n=56058 lower 0.9914 [0.9907, 0.9922]  upper 0.0075 [0.0068, 0.0082]  -> does not fire; K1-material: material
+  greedy own   exclusion-robust: YES
+  greedy cross s43: n=18547 excl=139 tau=(-0.3628, +0.2710) lower 0.9991 upper 0.0000
+  greedy cross s44: n=18551 excl=135 tau=(-0.3642, +0.2705) lower 0.9990 upper 0.0000
+  greedy cross s45: n=18540 excl=146 tau=(-0.3621, +0.2720) lower 0.9989 upper 0.0000
+  greedy cross POOLED [registered ] n=55638 lower 0.9990 [0.9987, 0.9992]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  greedy cross POOLED [excl->lower] n=56058 lower 0.9990 [0.9987, 0.9992]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  greedy cross POOLED [excl->upper] n=56058 lower 0.9915 [0.9907, 0.9922]  upper 0.0075 [0.0068, 0.0082]  -> does not fire; K1-material: material
+  greedy cross exclusion-robust: YES
+  topk   own   s43: n=17915 excl=771 tau=(-0.3659, +0.2682) lower 0.9824 upper 0.0000
+  topk   own   s44: n=17931 excl=755 tau=(-0.3628, +0.2710) lower 0.9839 upper 0.0000
+  topk   own   s45: n=17959 excl=727 tau=(-0.3642, +0.2705) lower 0.9858 upper 0.0000
+  topk   own   s46: n=17870 excl=816 tau=(-0.3621, +0.2720) lower 0.9860 upper 0.0000
+  topk   own   POOLED [registered ] n=71675 lower 0.9845 [0.9836, 0.9856]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  topk   own   POOLED [excl->lower] n=74744 lower 0.9851 [0.9842, 0.9862]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  topk   own   POOLED [excl->upper] n=74744 lower 0.9441 [0.9424, 0.9459]  upper 0.0411 [0.0396, 0.0425]  -> does not fire; K1-material: material
+  topk   own   exclusion-robust: YES
+  topk   cross s43: n=17915 excl=771 tau=(-0.3628, +0.2710) lower 0.9824 upper 0.0000
+  topk   cross s44: n=17931 excl=755 tau=(-0.3642, +0.2705) lower 0.9837 upper 0.0000
+  topk   cross s45: n=17959 excl=727 tau=(-0.3621, +0.2720) lower 0.9863 upper 0.0000
+  topk   cross s46: n=17870 excl=816 tau=(-0.3659, +0.2682) lower 0.9851 upper 0.0000
+  topk   cross POOLED [registered ] n=71675 lower 0.9844 [0.9834, 0.9854]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  topk   cross POOLED [excl->lower] n=74744 lower 0.9850 [0.9840, 0.9860]  upper 0.0000 [0.0000, 0.0000]  -> does not fire; K1-material: material
+  topk   cross POOLED [excl->upper] n=74744 lower 0.9440 [0.9422, 0.9456]  upper 0.0411 [0.0397, 0.0425]  -> does not fire; K1-material: material
+  topk   cross exclusion-robust: YES
+
+K1 VERDICT (own scorer, registered):
+  greedy: does not fire; cross-scorer agrees  [greedy own-scorer pass is expected by construction, §56.2]
+  topk  : does not fire; cross-scorer agrees
+K1-material (secondary, §56.3; does not override K1): greedy material  topk material
+  => K1 does not fire; filter branch continues
+
+DIRECTION (§41, operationalised §56.7): lower-tail pooled rate vs upper, own scorer, gen 1, r = 100
+  greedy: lower 0.9989 upper 0.0000 -> consistent
+  topk  : lower 0.9845 upper 0.0000 -> consistent
+  => 7.1 runs the lower tail (registered direction)
+
+K2 — Spearman(S own, S cross), gen-1 r = 100 corpora
+  gpt2m_greedy_s43: rho +0.9989 (n=18547, scorers 43 vs 44)
+  gpt2m_greedy_s44: rho +0.9959 (n=18551, scorers 44 vs 45)
+  gpt2m_greedy_s45: rho +0.9963 (n=18540, scorers 45 vs 46)
+  pilot_gpt2m_s43: rho +0.9994 (n=17915, scorers 43 vs 44)
+  pilot_gpt2m_s44: rho +0.9994 (n=17931, scorers 44 vs 45)
+  pilot_gpt2m_s45: rho +0.9994 (n=17959, scorers 45 vs 46)
+  pilot_gpt2m_s46: rho +0.9994 (n=17870, scorers 46 vs 43)
+  median +0.9994  min +0.9959  over 7 corpora -> K2 does not fire (threshold 0.3)
+  reference, null slices (human text) under the same scorer pairs:
+    gen 1: 43v44 +0.9994  44v45 +0.9993  45v46 +0.9993  46v43 +0.9994
+    gen 2: 43v44 +0.9994  44v45 +0.9993  45v46 +0.9993  46v43 +0.9994
+    gen 3: 43v44 +0.9994  44v45 +0.9993  45v46 +0.9993  46v43 +0.9994
+    gen 4: 43v44 +0.9994  44v45 +0.9993  45v46 +0.9992  46v43 +0.9994
+  descriptive, all other corpora (synthetic rows):
+    gpt2m_greedy  c1: s43 +0.999  s44 +0.996  s45 +0.996
+    gpt2m_greedy  c2: s43 +0.998  s44 +0.996  s45 +0.995
+    gpt2m_greedy  c3: s43 +0.998  s44 +0.996  s45 +0.994
+    gpt2m_greedy  c4: s43 +0.998  s44 +0.996  s45 +0.992
+    pilot_gpt2m   c1: s43 +0.999  s44 +0.999  s45 +0.999  s46 +0.999
+    pilot_gpt2m   c2: s43 +0.999  s44 +0.999  s45 +0.999  s46 +1.000
+    pilot_gpt2m   c3: s43 +1.000  s44 +0.999  s45 +0.999  s46 +1.000
+    pilot_gpt2m   c4: s43 +0.999  s44 +1.000  s45 +0.999  s46 +1.000
+    mix50_greedy  c1: s43 +0.999  s44 +0.996  s45 +0.996
+    mix50_greedy  c2: s43 +0.998  s44 +0.995  s45 +0.995
+    mix50_greedy  c3: s43 +0.998  s44 +0.998  s45 +0.995
+    mix50_greedy  c4: s43 +0.998  s44 +0.998  s45 +0.996
+    mix50_topk    c1: s43 +0.999  s44 +0.999  s45 +0.999
+    mix50_topk    c2: s43 +0.999  s44 +0.999  s45 +0.999
+    mix50_topk    c3: s43 +0.999  s44 +0.999  s45 +0.999
+    mix50_topk    c4: s43 +0.999  s44 +0.999  s45 +0.999
+
+RANK STABILITY — own scorer, pure chains, documents matched by prompt_hash (unique in both)
+  gpt2m_greedy_s43: c1-c2 +0.461 (n=18439)  c2-c3 +0.602 (n=18460)  c3-c4 +0.670 (n=18485)  c1-c4 +0.321 (n=18440)
+  gpt2m_greedy_s44: c1-c2 +0.448 (n=18438)  c2-c3 +0.613 (n=18487)  c3-c4 +0.668 (n=18509)  c1-c4 +0.314 (n=18443)
+  gpt2m_greedy_s45: c1-c2 +0.452 (n=18426)  c2-c3 +0.584 (n=18456)  c3-c4 +0.660 (n=18455)  c1-c4 +0.331 (n=18413)
+  pilot_gpt2m_s43: c1-c2 +0.360 (n=17391)  c2-c3 +0.380 (n=17660)  c3-c4 +0.380 (n=17707)  c1-c4 +0.351 (n=17421)
+  pilot_gpt2m_s44: c1-c2 +0.343 (n=17367)  c2-c3 +0.380 (n=17580)  c3-c4 +0.386 (n=17712)  c1-c4 +0.346 (n=17451)
+  pilot_gpt2m_s45: c1-c2 +0.352 (n=17361)  c2-c3 +0.374 (n=17593)  c3-c4 +0.374 (n=17757)  c1-c4 +0.348 (n=17511)
+  pilot_gpt2m_s46: c1-c2 +0.352 (n=17330)  c2-c3 +0.381 (n=17628)  c3-c4 +0.393 (n=17694)  c1-c4 +0.357 (n=17379)
+
+DESCRIPTIVE — enrichment for every synth task vs its scorer's null of the same gen (synthetic rows)
+  gpt2m_greedy_s43_c1_cross    lower 0.9991 upper 0.0000
+  gpt2m_greedy_s43_c2_cross    lower 0.9987 upper 0.0000
+  gpt2m_greedy_s43_c3_cross    lower 0.9983 upper 0.0000
+  gpt2m_greedy_s43_c4_cross    lower 0.9986 upper 0.0000
+  gpt2m_greedy_s44_c1_cross    lower 0.9990 upper 0.0000
+  gpt2m_greedy_s44_c2_cross    lower 0.9985 upper 0.0000
+  gpt2m_greedy_s44_c3_cross    lower 0.9982 upper 0.0000
+  gpt2m_greedy_s44_c4_cross    lower 0.9982 upper 0.0000
+  gpt2m_greedy_s45_c1_cross    lower 0.9989 upper 0.0000
+  gpt2m_greedy_s45_c2_cross    lower 0.9987 upper 0.0000
+  gpt2m_greedy_s45_c3_cross    lower 0.9984 upper 0.0000
+  gpt2m_greedy_s45_c4_cross    lower 0.9983 upper 0.0000
+  gpt2m_greedy_s43_c1_own      lower 0.9989 upper 0.0000
+  gpt2m_greedy_s43_c2_own      lower 0.9982 upper 0.0000
+  gpt2m_greedy_s43_c3_own      lower 0.9980 upper 0.0000
+  gpt2m_greedy_s43_c4_own      lower 0.9985 upper 0.0000
+  gpt2m_greedy_s44_c1_own      lower 0.9990 upper 0.0000
+  gpt2m_greedy_s44_c2_own      lower 0.9987 upper 0.0000
+  gpt2m_greedy_s44_c3_own      lower 0.9984 upper 0.0000
+  gpt2m_greedy_s44_c4_own      lower 0.9983 upper 0.0000
+  gpt2m_greedy_s45_c1_own      lower 0.9988 upper 0.0000
+  gpt2m_greedy_s45_c2_own      lower 0.9987 upper 0.0000
+  gpt2m_greedy_s45_c3_own      lower 0.9984 upper 0.0000
+  gpt2m_greedy_s45_c4_own      lower 0.9983 upper 0.0000
+/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/scipy-stack/2024a/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/scipy-stack/2024a/lib/python3.11/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+  mix50_greedy_s43_c1_cross    lower 0.9989 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c2_cross    lower 0.9989 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c3_cross    lower 0.9977 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c4_cross    lower 0.9978 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c1_cross    lower 0.9989 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c2_cross    lower 0.9985 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c3_cross    lower 0.9978 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c4_cross    lower 0.9977 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c1_cross    lower 0.9992 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c2_cross    lower 0.9989 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c3_cross    lower 0.9978 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c4_cross    lower 0.9974 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c1_own      lower 0.9987 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c2_own      lower 0.9987 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c3_own      lower 0.9973 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s43_c4_own      lower 0.9974 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c1_own      lower 0.9990 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c2_own      lower 0.9986 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c3_own      lower 0.9984 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s44_c4_own      lower 0.9978 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c1_own      lower 0.9992 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c2_own      lower 0.9991 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c3_own      lower 0.9981 upper 0.0000   | real rows lower nan upper nan
+  mix50_greedy_s45_c4_own      lower 0.9974 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c1_cross      lower 0.9823 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c2_cross      lower 0.9866 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c3_cross      lower 0.9872 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c4_cross      lower 0.9879 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c1_cross      lower 0.9831 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c2_cross      lower 0.9880 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c3_cross      lower 0.9876 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c4_cross      lower 0.9877 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c1_cross      lower 0.9873 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c2_cross      lower 0.9873 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c3_cross      lower 0.9847 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c4_cross      lower 0.9857 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c1_own        lower 0.9820 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c2_own        lower 0.9871 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c3_own        lower 0.9870 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s43_c4_own        lower 0.9879 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c1_own        lower 0.9833 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c2_own        lower 0.9881 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c3_own        lower 0.9881 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s44_c4_own        lower 0.9882 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c1_own        lower 0.9871 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c2_own        lower 0.9869 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c3_own        lower 0.9837 upper 0.0000   | real rows lower nan upper nan
+  mix50_topk_s45_c4_own        lower 0.9855 upper 0.0000   | real rows lower nan upper nan
+  pilot_gpt2m_s43_c1_cross     lower 0.9824 upper 0.0000
+  pilot_gpt2m_s43_c2_cross     lower 0.9904 upper 0.0000
+  pilot_gpt2m_s43_c3_cross     lower 0.9914 upper 0.0000
+  pilot_gpt2m_s43_c4_cross     lower 0.9902 upper 0.0000
+  pilot_gpt2m_s44_c1_cross     lower 0.9837 upper 0.0000
+  pilot_gpt2m_s44_c2_cross     lower 0.9926 upper 0.0000
+  pilot_gpt2m_s44_c3_cross     lower 0.9906 upper 0.0000
+  pilot_gpt2m_s44_c4_cross     lower 0.9907 upper 0.0000
+  pilot_gpt2m_s45_c1_cross     lower 0.9863 upper 0.0000
+  pilot_gpt2m_s45_c2_cross     lower 0.9933 upper 0.0000
+  pilot_gpt2m_s45_c3_cross     lower 0.9922 upper 0.0000
+  pilot_gpt2m_s45_c4_cross     lower 0.9919 upper 0.0000
+  pilot_gpt2m_s46_c1_cross     lower 0.9851 upper 0.0000
+  pilot_gpt2m_s46_c2_cross     lower 0.9926 upper 0.0000
+  pilot_gpt2m_s46_c3_cross     lower 0.9906 upper 0.0000
+  pilot_gpt2m_s46_c4_cross     lower 0.9917 upper 0.0000
+  pilot_gpt2m_s43_c1_own       lower 0.9824 upper 0.0000
+  pilot_gpt2m_s43_c2_own       lower 0.9901 upper 0.0000
+  pilot_gpt2m_s43_c3_own       lower 0.9914 upper 0.0000
+  pilot_gpt2m_s43_c4_own       lower 0.9897 upper 0.0000
+  pilot_gpt2m_s44_c1_own       lower 0.9839 upper 0.0000
+  pilot_gpt2m_s44_c2_own       lower 0.9925 upper 0.0000
+  pilot_gpt2m_s44_c3_own       lower 0.9911 upper 0.0000
+  pilot_gpt2m_s44_c4_own       lower 0.9909 upper 0.0000
+  pilot_gpt2m_s45_c1_own       lower 0.9858 upper 0.0000
+  pilot_gpt2m_s45_c2_own       lower 0.9929 upper 0.0000
+  pilot_gpt2m_s45_c3_own       lower 0.9918 upper 0.0000
+  pilot_gpt2m_s45_c4_own       lower 0.9916 upper 0.0000
+  pilot_gpt2m_s46_c1_own       lower 0.9860 upper 0.0000
+  pilot_gpt2m_s46_c2_own       lower 0.9934 upper 0.0000
+  pilot_gpt2m_s46_c3_own       lower 0.9911 upper 0.0000
+  pilot_gpt2m_s46_c4_own       lower 0.9922 upper 0.0000
+
+M3 — non-Δ check (§56.9): drop a tail vs random drops of equal count; retained-corpus Distinct-2 and unigram KL(null || retained), generated spans, own scorer, gen 1, r = 100
+  greedy s43 drop lower (k=18526, bytes 9824612 vs random 9821575): D2 full 0.08315 -> 0.24311 (random 0.37107±0.03778, pct 0.0) | KL full 0.71020 -> 2.54210 (random 1.74280±0.04645, pct 100.0)
+  greedy s43 drop upper (k=0, bytes 0 vs random 0): D2 full 0.08315 -> 0.08315 (random 0.08315±0.00000, pct 0.0) | KL full 0.71020 -> 0.71020 (random 0.71020±0.00000, pct 0.0)
+  greedy s44 drop lower (k=18533, bytes 9750671 vs random 9747976): D2 full 0.08241 -> 0.23041 (random 0.36597±0.04014, pct 0.0) | KL full 0.72254 -> 2.58880 (random 1.81840±0.04962, pct 100.0)
+  greedy s44 drop upper (k=0, bytes 0 vs random 0): D2 full 0.08241 -> 0.08241 (random 0.08241±0.00000, pct 0.0) | KL full 0.72254 -> 0.72254 (random 0.72254±0.00000, pct 0.0)
+  greedy s45 drop lower (k=18518, bytes 9821641 vs random 9818352): D2 full 0.08308 -> 0.26651 (random 0.37021±0.03674, pct 0.0) | KL full 0.70926 -> 2.55956 (random 1.72445±0.04500, pct 100.0)
+  greedy s45 drop upper (k=0, bytes 0 vs random 0): D2 full 0.08308 -> 0.08308 (random 0.08308±0.00000, pct 0.0) | KL full 0.70926 -> 0.70926 (random 0.70926±0.00000, pct 0.0)
+  topk   s43 drop lower (k=17600, bytes 10351251 vs random 10337935): D2 full 0.29294 -> 0.59987 (random 0.67244±0.00429, pct 0.0) | KL full 0.18140 -> 0.64401 (random 0.47503±0.00656, pct 100.0)
+  topk   s43 drop upper (k=0, bytes 0 vs random 0): D2 full 0.29294 -> 0.29294 (random 0.29294±0.00000, pct 0.0) | KL full 0.18140 -> 0.18140 (random 0.18140±0.00000, pct 0.0)
+  topk   s44 drop lower (k=17642, bytes 10388483 vs random 10376853): D2 full 0.29307 -> 0.62582 (random 0.67878±0.00399, pct 0.0) | KL full 0.18173 -> 0.65687 (random 0.49902±0.00715, pct 100.0)
+  topk   s44 drop upper (k=0, bytes 0 vs random 0): D2 full 0.29307 -> 0.29307 (random 0.29307±0.00000, pct 0.0) | KL full 0.18173 -> 0.18173 (random 0.18173±0.00000, pct 0.0)
+  topk   s45 drop lower (k=17704, bytes 10411826 vs random 10402484): D2 full 0.29308 -> 0.64008 (random 0.68900±0.00424, pct 0.0) | KL full 0.18131 -> 0.65786 (random 0.53482±0.00729, pct 100.0)
+  topk   s45 drop upper (k=0, bytes 0 vs random 0): D2 full 0.29308 -> 0.29308 (random 0.29308±0.00000, pct 0.0) | KL full 0.18131 -> 0.18131 (random 0.18131±0.00000, pct 0.0)
+  topk   s46 drop lower (k=17619, bytes 10371681 vs random 10360771): D2 full 0.29407 -> 0.64873 (random 0.69069±0.00419, pct 0.0) | KL full 0.18156 -> 0.67403 (random 0.54094±0.00695, pct 100.0)
+  topk   s46 drop upper (k=0, bytes 0 vs random 0): D2 full 0.29407 -> 0.29407 (random 0.29407±0.00000, pct 0.0) | KL full 0.18156 -> 0.18156 (random 0.18156±0.00000, pct 0.0)
+
+READ COMPLETE
