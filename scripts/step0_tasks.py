@@ -58,7 +58,7 @@ def main():
                 if dec == "greedy" and g >= 2:
                     gm = P(tree, f"seed{s}", f"gen{g-1}", "model")
                     need.add(gm)
-                    rows.append([f"{tree}_s{s}_c{g}_gen", "canary", corpus, gm, rref, sref, es, str(a.n_rows), "1"])
+                    rows.append([f"{tree}_s{s}_c{g}_gen", "canary", corpus, gm, rref, sref, es, str(a.n_rows), "0"])  # K3 retired (decisions.md §44)
     for g in GENS:
         for sc in sorted(used_scorers):
             need.add(fresh(g))
