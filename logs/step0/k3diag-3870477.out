@@ -1,0 +1,36 @@
+rows 18686  len128 18547  decode(encode(text))==text 18686/18686
+docs containing eos(50256) anywhere 0; in scored span 0; literal '<|endoftext|>' in text 0
+generation_config: {"_from_model_config": true, "bos_token_id": 50256, "eos_token_id": 50256, "transformers_version": "5.12.0"}
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   1%|          | 2/292 [00:00<01:06,  4.35it/s]Loading weights:   5%|▍         | 14/292 [00:00<00:14, 19.57it/s]Loading weights:   8%|▊         | 22/292 [00:18<04:47,  1.06s/it]Loading weights:   9%|▉         | 26/292 [00:18<03:34,  1.24it/s]Loading weights:  12%|█▏        | 36/292 [00:19<01:51,  2.29it/s]Loading weights:  16%|█▌        | 46/292 [00:20<01:18,  3.14it/s]Loading weights:  28%|██▊       | 82/292 [00:20<00:22,  9.44it/s]Loading weights:  37%|███▋      | 108/292 [00:20<00:11, 15.57it/s]Loading weights:  43%|████▎     | 125/292 [00:21<00:09, 18.24it/s]Loading weights:  54%|█████▍    | 158/292 [00:21<00:04, 30.89it/s]Loading weights:  61%|██████    | 177/292 [00:22<00:04, 24.88it/s]Loading weights:  70%|██████▉   | 204/292 [00:22<00:02, 33.08it/s]Loading weights:  82%|████████▏ | 240/292 [00:22<00:01, 51.74it/s]Loading weights:  98%|█████████▊| 286/292 [00:23<00:00, 81.35it/s]Loading weights: 100%|██████████| 292/292 [00:23<00:00, 12.55it/s]
+
+== float32: argmax_match_rate 0.96387  mismatches 64324
+  docs by #mismatch: 0:2167 1:2501 2-5:10049 6-20:3830 >20:0
+  share of mismatches in top 1% / 5% docs: 0.032 / 0.134
+  mismatch rate by position bin (1-indexed 33..128, bins of 8): 0.0559 0.0521 0.0475 0.0455 0.0421 0.0395 0.0351 0.0310 0.0268 0.0224 0.0200 0.0156
+  first scored position (33) mismatch rate 0.0479
+  rank of stored token at mismatches: r2 0.781  r3-5 0.161  >5 0.058
+  top1-top2 gap at mismatches: 10%=0.01247 50%=0.08008 90%=0.2617 99%=0.5815
+  top1-top2 gap at matches   : 10%=0.278 50%=1.75 90%=6.167 99%=9.698
+  isolated mismatches (neighbours match): 0.867
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 7991.50it/s]
+
+== bfloat16: argmax_match_rate 0.97476  mismatches 44934
+  docs by #mismatch: 0:3378 1:3606 2-5:10145 6-20:1418 >20:0
+  share of mismatches in top 1% / 5% docs: 0.037 / 0.148
+  mismatch rate by position bin (1-indexed 33..128, bins of 8): 0.0379 0.0368 0.0335 0.0319 0.0298 0.0267 0.0250 0.0222 0.0189 0.0157 0.0138 0.0107
+  first scored position (33) mismatch rate 0.0323
+  rank of stored token at mismatches: r2 0.424  r3-5 0.065  >5 0.020
+  top1-top2 gap at mismatches: 10%=0 50%=0 90%=0.5 99%=1
+  top1-top2 gap at matches   : 10%=0.25 50%=1.75 90%=6 99%=10
+  isolated mismatches (neighbours match): 0.915
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  37%|███▋      | 108/292 [00:00<00:00, 1018.14it/s]Loading weights:  83%|████████▎ | 242/292 [00:00<00:00, 1200.89it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1092.58it/s]
+
+== float16: argmax_match_rate 0.96724  mismatches 58334
+  docs by #mismatch: 0:2459 1:2776 2-5:10292 6-20:3020 >20:0
+  share of mismatches in top 1% / 5% docs: 0.034 / 0.139
+  mismatch rate by position bin (1-indexed 33..128, bins of 8): 0.0505 0.0473 0.0431 0.0413 0.0383 0.0358 0.0318 0.0279 0.0242 0.0203 0.0183 0.0142
+  first scored position (33) mismatch rate 0.0432
+  rank of stored token at mismatches: r2 0.778  r3-5 0.153  >5 0.053
+  top1-top2 gap at mismatches: 10%=0.01562 50%=0.09375 90%=0.25 99%=0.625
+  top1-top2 gap at matches   : 10%=0.2656 50%=1.75 90%=6.125 99%=9.75
+  isolated mismatches (neighbours match): 0.881

@@ -53,7 +53,7 @@ def main():
                 need.add(corpus)
                 for role, sc in (("own", s), ("cross", CROSS[s])):
                     used_scorers.add(sc)
-                    k3 = "1" if (dec == "greedy" and role == "own" and g == 1) else "0"
+                    k3 = "0"  # K3 retired (decisions.md §44); K3prime checked by step0_gate.py
                     rows.append([f"{tree}_s{s}_c{g}_{role}", "synth", corpus, scorer(sc), rref, sref, es, str(a.n_rows), k3])
                 if dec == "greedy" and g >= 2:
                     gm = P(tree, f"seed{s}", f"gen{g-1}", "model")
