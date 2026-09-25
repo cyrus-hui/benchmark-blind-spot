@@ -1,0 +1,4 @@
+task 69: mix50_greedy_s43_c2_cross  head 47f0668  node ng31203
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  33%|███▎      | 95/292 [00:00<00:00, 910.16it/s]Loading weights:  75%|███████▍  | 218/292 [00:00<00:00, 1072.57it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1052.62it/s]
+mix50_greedy_s43_c2_cross: OK kind=synth n_scored=9269 n_excluded=74 argmax_match_rate=0.92470 k3_enforced=False 56.2s

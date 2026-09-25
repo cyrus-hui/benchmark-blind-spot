@@ -1,0 +1,3 @@
+task 1: gpt2m_greedy_s43_c1_own  head ed64898  node ng31203
+REFUSE: output exists for gpt2m_greedy_s43_c1_own; never overwrite
+srun: error: ng31203: task 0: Exited with exit code 1

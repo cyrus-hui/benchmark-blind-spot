@@ -1,0 +1,4 @@
+task 118: mix50_topk_s45_c2_cross  head 47f0668  node ng10503
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 94/292 [00:00<00:00, 914.13it/s]Loading weights:  78%|███████▊  | 228/292 [00:00<00:00, 1113.61it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1058.91it/s]
+mix50_topk_s45_c2_cross: OK kind=synth n_scored=8995 n_excluded=348 argmax_match_rate=0.45816 k3_enforced=False 54.5s

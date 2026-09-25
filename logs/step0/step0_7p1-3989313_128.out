@@ -1,0 +1,4 @@
+task 128: null_c2_sc44  head 47f0668  node ng31304
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  29%|██▉       | 84/292 [00:00<00:00, 736.04it/s]Loading weights:  71%|███████   | 208/292 [00:00<00:00, 1007.43it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 980.58it/s] 
+null_c2_sc44: OK kind=null n_scored=18679 n_excluded=7 argmax_match_rate=0.41256 k3_enforced=False 113.0s

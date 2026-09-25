@@ -1,0 +1,4 @@
+task 1: gpt2m_greedy_s43_c1_own  head 47f0668  node ng31203
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  30%|███       | 88/292 [00:00<00:00, 817.23it/s]Loading weights:  70%|██████▉   | 204/292 [00:00<00:00, 1012.64it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 955.67it/s] 
+gpt2m_greedy_s43_c1_own: OK kind=synth n_scored=18547 n_excluded=139 argmax_match_rate=0.96387 k3_enforced=False 112.2s

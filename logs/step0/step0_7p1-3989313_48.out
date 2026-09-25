@@ -1,0 +1,4 @@
+task 48: pilot_gpt2m_s44_c4_own  head 47f0668  node ng10502
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 94/292 [00:00<00:00, 925.22it/s]Loading weights:  75%|███████▌  | 220/292 [00:00<00:00, 1095.36it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1033.53it/s]
+pilot_gpt2m_s44_c4_own: OK kind=synth n_scored=18213 n_excluded=473 argmax_match_rate=0.48369 k3_enforced=False 110.3s

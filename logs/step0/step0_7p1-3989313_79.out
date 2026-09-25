@@ -1,0 +1,4 @@
+task 79: mix50_greedy_s44_c2_own  head 47f0668  node ng31006
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  28%|██▊       | 82/292 [00:00<00:00, 810.09it/s]Loading weights:  71%|███████   | 206/292 [00:00<00:00, 1032.49it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1045.69it/s]
+mix50_greedy_s44_c2_own: OK kind=synth n_scored=9285 n_excluded=58 argmax_match_rate=0.92635 k3_enforced=False 56.3s

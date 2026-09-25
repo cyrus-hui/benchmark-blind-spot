@@ -1,0 +1,4 @@
+task 99: mix50_topk_s43_c1_own  head 47f0668  node ng31203
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  29%|██▉       | 85/292 [00:00<00:00, 842.80it/s]Loading weights:  71%|███████   | 208/292 [00:00<00:00, 1057.83it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1023.75it/s]
+mix50_topk_s43_c1_own: OK kind=synth n_scored=8951 n_excluded=392 argmax_match_rate=0.45349 k3_enforced=False 54.3s

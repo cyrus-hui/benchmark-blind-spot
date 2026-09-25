@@ -1,0 +1,4 @@
+task 78: mix50_greedy_s44_c1_cross  head 47f0668  node ng31002
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  24%|██▍       | 70/292 [00:00<00:00, 672.12it/s]Loading weights:  66%|██████▌   | 192/292 [00:00<00:00, 983.38it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 972.51it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 943.18it/s]
+mix50_greedy_s44_c1_cross: OK kind=synth n_scored=9273 n_excluded=70 argmax_match_rate=0.96188 k3_enforced=False 56.3s

@@ -1,0 +1,4 @@
+task 59: pilot_gpt2m_s46_c1_cross  head 47f0668  node ng31401
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/292 [00:00<00:03, 83.88it/s]Loading weights:  18%|█▊        | 52/292 [00:00<00:00, 248.54it/s]Loading weights:  28%|██▊       | 82/292 [00:00<00:00, 233.49it/s]Loading weights:  41%|████▏     | 121/292 [00:00<00:00, 273.13it/s]Loading weights:  51%|█████     | 149/292 [00:00<00:00, 153.22it/s]Loading weights:  65%|██████▌   | 190/292 [00:00<00:00, 184.93it/s]Loading weights:  79%|███████▉  | 230/292 [00:01<00:00, 223.80it/s]Loading weights:  92%|█████████▏| 268/292 [00:01<00:00, 257.28it/s]Loading weights: 100%|██████████| 292/292 [00:01<00:00, 199.00it/s]
+pilot_gpt2m_s46_c1_cross: OK kind=synth n_scored=17870 n_excluded=816 argmax_match_rate=0.45266 k3_enforced=False 108.5s

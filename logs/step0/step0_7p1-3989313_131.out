@@ -1,0 +1,4 @@
+task 131: null_c3_sc43  head 47f0668  node ng31401
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/292 [00:00<?, ?it/s]Loading weights:  36%|███▋      | 106/292 [00:00<00:00, 972.15it/s]Loading weights:  84%|████████▍ | 246/292 [00:00<00:00, 1202.54it/s]Loading weights: 100%|██████████| 292/292 [00:00<00:00, 1095.89it/s]
+null_c3_sc43: OK kind=null n_scored=18677 n_excluded=9 argmax_match_rate=0.41295 k3_enforced=False 113.0s
