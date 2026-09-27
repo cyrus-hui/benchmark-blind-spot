@@ -46,8 +46,8 @@ def manifest(arm_root):
     return [dict(zip(hdr, l.split("\t"))) for l in L[1:] if l.strip()]
 
 
-def newest_log(name, g):
-    cands = sorted(glob.glob(f"logs/filt71/{name}-*.out"), key=os.path.getmtime, reverse=True)
+def newest_log(name, s, g):
+    cands = sorted(glob.glob(f"logs/filt71/{name}-s{s}-g{g}-*.out"), key=os.path.getmtime, reverse=True)
     for c in cands:
         t = open(c, errors="replace").read().replace("\r", "\n")
         if f"=== gen {g} complete" in t:
@@ -85,7 +85,7 @@ def check_cell(arm, qi, dec, s, g, keys):
         ok(bool(fr) and {x["k"] for x in fr} == {r["k"]}, f"G3 R k={r['k']} vs F k={sorted({x['k'] for x in fr})}")
         if g == 1:
             ok(bool(fr) and {x["unscorable_md5"] for x in fr} == {r["unscorable_md5"]}, "G3 gen-1 unscorable set = F's")
-    log, t = newest_log(nm, g)
+    log, t = newest_log(nm, s, g)
     ok(log is not None, f"G4 log {log}")
     if log:
         ok("7.1 filter OK" in t, "G4 '7.1 filter OK' in log")
