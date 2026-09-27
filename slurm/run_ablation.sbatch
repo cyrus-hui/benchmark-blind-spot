@@ -56,6 +56,28 @@ if [ "$MIX_RATIO" != "-" ] && [ "$GEN" -gt 0 ]; then
     CORPUS="$MIXED"
     PROMPT_ARGS=(--prompt-corpus "$MIXED")
 fi
+# ---- Phase 7.1 corpus filter (decisions.md §62 + §64, registered Sept 26 2026) ----
+# No-op unless the config has a filter: block: every pre-existing config is unaffected.
+# Prompts are untouched: corpus mode still draws them from gen g-1's FULL synthetic corpus (§62.4).
+read FILT_ARM FILT_Q FILT_DEC FILT_PAIR FILT_K1 < <(python -c "import yaml,sys;f=yaml.safe_load(open(sys.argv[1])).get('filter') or {};print(*(f.get(k,'-') for k in ('arm','q','decoder','pair_root','k1_ref_fmt')))" "$CFG")
+if [ "$FILT_ARM" != "-" ] && [ "$GEN" -gt 0 ]; then
+    [ "$MIX_RATIO" = "-" ] || { echo "7.1 filter: REFUSE config has both mix_ratio and filter"; exit 1; }
+    for f in src/filter_corpus.py src/step0_score.py; do
+        git ls-files --error-unmatch "$f" >/dev/null 2>&1 && git diff --quiet HEAD -- "$f" \
+            || { echo "7.1 filter: REFUSE $f is not committed and unmodified"; exit 1; }
+    done
+    FILTERED="$RUN_ROOT/filtered/seed$SEED/gen$GEN.jsonl"
+    FARGS=(--arm "$FILT_ARM" --q "$FILT_Q" --decoder "$FILT_DEC" --seed "$SEED" --gen "$GEN"
+           --corpus "$CORPUS" --scorer "$RUN_ROOT/seed$SEED/gen0/model" --out "$FILTERED"
+           --manifest "$RUN_ROOT/filter_manifest.tsv"
+           --scores-out "$RUN_ROOT/filter_scores/seed$SEED/gen$GEN.npz")
+    [ "$FILT_ARM" = "R" ] && FARGS+=(--pair-manifest "$FILT_PAIR/filter_manifest.tsv")
+    [ "$GEN" -eq 1 ] && FARGS+=(--k1-ref "$(printf "$FILT_K1" "$SEED")")
+    echo "7.1 filter: arm=$FILT_ARM q=$FILT_Q dec=$FILT_DEC gen=$GEN seed=$SEED head=$(git rev-parse --short HEAD) synth=$CORPUS"
+    python src/filter_corpus.py "${FARGS[@]}" || { echo "7.1 filter: filter_corpus FAILED"; exit 1; }
+    CORPUS="$FILTERED"
+    echo "7.1 filter: training corpus $CORPUS md5 $(md5sum "$CORPUS" | cut -d' ' -f1) lines $(wc -l < "$CORPUS")"
+fi
 python src/finetune.py --config $CFG --generation $GEN --corpus "$CORPUS" --seed $SEED
 python src/generate.py --config $CFG --generation $GEN --mode eval   --seed $SEED
 python src/metrics.py  --config $CFG --generation $GEN --seed $SEED

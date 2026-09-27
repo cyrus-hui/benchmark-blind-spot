@@ -1,0 +1,18 @@
+  gen-0 sources (6), K-F1 references (6), shared files (6) OK
+  run_ablation.sbatch: 1 anchor x1, inverse canary OK
+  no-op canary: hook parser prints '- - - - -' on all 14 existing configs
+  12 configs to write, no collisions, all parse as intended
+WROTE slurm/run_ablation.sbatch (backup slurm/run_ablation.sbatch.bak_pre_7p1) md5 db71fd461ebb00fa03cfd42f0cd71c92
+WROTE configs/filt71_F10_greedy.yaml (F 0.1 greedy - /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F10_greedy
+WROTE configs/filt71_F25_greedy.yaml (F 0.25 greedy - /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F25_greedy
+WROTE configs/filt71_F50_greedy.yaml (F 0.5 greedy - /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F50_greedy
+WROTE configs/filt71_R10_greedy.yaml (R 0.1 greedy /scratch/cyrh/collapse/filt71_F10_greedy /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R10_greedy
+WROTE configs/filt71_R25_greedy.yaml (R 0.25 greedy /scratch/cyrh/collapse/filt71_F25_greedy /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R25_greedy
+WROTE configs/filt71_R50_greedy.yaml (R 0.5 greedy /scratch/cyrh/collapse/filt71_F50_greedy /scratch/cyrh/collapse/step0_7p1/scores/gpt2m_greedy_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R50_greedy
+WROTE configs/filt71_F10_topk.yaml (F 0.1 topk - /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F10_topk
+WROTE configs/filt71_F25_topk.yaml (F 0.25 topk - /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F25_topk
+WROTE configs/filt71_F50_topk.yaml (F 0.5 topk - /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_F50_topk
+WROTE configs/filt71_R10_topk.yaml (R 0.1 topk /scratch/cyrh/collapse/filt71_F10_topk /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R10_topk
+WROTE configs/filt71_R25_topk.yaml (R 0.25 topk /scratch/cyrh/collapse/filt71_F25_topk /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R25_topk
+WROTE configs/filt71_R50_topk.yaml (R 0.5 topk /scratch/cyrh/collapse/filt71_F50_topk /scratch/cyrh/collapse/step0_7p1/scores/pilot_gpt2m_s%d_c1_own.npz) and run root /scratch/cyrh/collapse/filt71_R50_topk
+WROTE filt71_ood_lines.txt (252 lines) — append to slurm/ood_manifest.txt only after the chains
