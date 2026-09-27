@@ -1,0 +1,42 @@
+m1_analysis md5 0a384ddd87035f2ad0dc3ba3ba617ee1  root /scratch/cyrh/collapse  mode READ
+K0: 56 cells present, scorer 2ef0f1d7, real_test c5ba60ea
+K1: n_d identical across all cells; D = 2213 docs, N = 281050 tokens, n_d range [126, 127]
+K2: Σ c_d vs stored dcal_series, max |diff| 4.83e-08 (tol 1e-06)
+CANARIES PASS
+==============================================================================
+
+(1) CONCENTRATION of Δ_cal(g) - Δ_cal(0) over documents (top 10% = 222 docs, top 1% = 23 docs)
+  greedy s43 g1: total +2.28154 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  greedy s44 g1: total +2.28735 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  greedy s45 g1: total +2.28490 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  greedy s43 g7: total +2.91213 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  greedy s44 g7: total +2.92699 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  greedy s45 g7: total +2.92040 nats  top10%  0.130  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  topk   s43 g1: total +0.56953 nats  top10%  0.135  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s44 g1: total +0.56307 nats  top10%  0.135  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s45 g1: total +0.56500 nats  top10%  0.134  top1%  0.015  positive-c share  1.000  frac δ>0 1.000
+  topk   s46 g1: total +0.56219 nats  top10%  0.135  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s43 g7: total +0.98222 nats  top10%  0.135  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s44 g7: total +0.98301 nats  top10%  0.136  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s45 g7: total +0.98125 nats  top10%  0.136  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  topk   s46 g7: total +0.98321 nats  top10%  0.136  top1%  0.016  positive-c share  1.000  frac δ>0 1.000
+  Lorenz deciles (docs sorted by c_d, descending) -> /scratch/cyrh/collapse/m1/lorenz_deciles.csv
+
+(2) RANK STABILITY — Spearman of δ_d
+  greedy s43: 1-2 +0.986  2-3 +0.995  3-4 +0.997  4-5 +0.997  5-6 +0.997  6-7 +0.998  1-7 +0.942
+  greedy s44: 1-2 +0.988  2-3 +0.995  3-4 +0.997  4-5 +0.997  5-6 +0.998  6-7 +0.998  1-7 +0.941
+  greedy s45: 1-2 +0.987  2-3 +0.996  3-4 +0.997  4-5 +0.997  5-6 +0.997  6-7 +0.998  1-7 +0.940
+  topk   s43: 1-2 +0.978  2-3 +0.988  3-4 +0.992  4-5 +0.994  5-6 +0.995  6-7 +0.995  1-7 +0.901
+  topk   s44: 1-2 +0.978  2-3 +0.989  3-4 +0.991  4-5 +0.994  5-6 +0.994  6-7 +0.995  1-7 +0.904
+  topk   s45: 1-2 +0.978  2-3 +0.987  3-4 +0.992  4-5 +0.994  5-6 +0.995  6-7 +0.995  1-7 +0.904
+  topk   s46: 1-2 +0.980  2-3 +0.987  3-4 +0.991  4-5 +0.994  5-6 +0.994  6-7 +0.995  1-7 +0.902
+  greedy g1 seed pairs: 43v44 +0.997  43v45 +0.997  44v45 +0.997
+  greedy g7 seed pairs: 43v44 +0.996  43v45 +0.996  44v45 +0.996
+  topk   g1 seed pairs: 43v44 +0.982  43v45 +0.981  43v46 +0.981  44v45 +0.981  44v46 +0.982  45v46 +0.980
+  topk   g7 seed pairs: 43v44 +0.992  43v45 +0.992  43v46 +0.992  44v45 +0.992  44v46 +0.992  45v46 +0.992
+
+(3) P0b LINK — Spearman(δ_d(1), gen-0 mean top-1 probability)
+  greedy: s43 -0.655  s44 -0.657  s45 -0.657
+  topk  : s43 -0.691  s44 -0.688  s45 -0.690  s46 -0.683
+
+M1 ANALYSIS COMPLETE
