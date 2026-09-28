@@ -1,0 +1,11 @@
+{
+ "verdict": "PASS",
+ "mode": "all",
+ "cells_checked": 252,
+ "complete": 252,
+ "failures": [],
+ "expect_keys": 9,
+ "head": "1c321b0",
+ "time": "2026-09-28T11:10:14",
+ "script_md5": "c4259444e570d18faf005e9785eb7ac5"
+}
