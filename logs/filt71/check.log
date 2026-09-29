@@ -1,0 +1,2 @@
+canaries: C0 gen-0 symlinks 36/36, C1 cells 252/252, C2 matched k 126/126, registry 62d12548, gate PASS 252/252 @ 1c321b0
+--check: inputs valid. No value printed.

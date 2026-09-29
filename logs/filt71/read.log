@@ -1,0 +1,76 @@
+canaries: C0 gen-0 symlinks 36/36, C1 cells 252/252, C2 matched k 126/126, registry 62d12548, gate PASS 252/252 @ 1c321b0
+
+======================================================================
+62.6 PRIMARY  greedy q=0.25  D_s = Distinct-2_F(7) - Distinct-2_R(7), seeds (43, 44, 45)
+  D_s = -0.0006 +0.0000 -0.0038   mean -0.0015   tau_D greedy 0.0137
+  VERDICT: NO EFFECT
+======================================================================
+
+62.7(a) the same rule in the other five cells (Distinct-2)
+   (forecast on record: top-k reads NO EFFECT; its r=100 fall is ~1.6x tau_D)
+  greedy q=0.10  D_s -0.0003 -0.0025 -0.0036  mean -0.0022  tau 0.0137  -> NO EFFECT
+  greedy q=0.50  D_s +0.0071 +0.0095 +0.0153  mean +0.0106  tau 0.0137  -> NO EFFECT
+  topk   q=0.10  D_s +0.0073 +0.0002 +0.0044  mean +0.0040  tau 0.0105  -> NO EFFECT
+  topk   q=0.25  D_s +0.0109 +0.0110 +0.0012  mean +0.0077  tau 0.0105  -> NO EFFECT
+  topk   q=0.50  D_s +0.0083 +0.0083 +0.0121  mean +0.0096  tau 0.0105  -> NO EFFECT
+
+62.7(b) KL-unigram mirror  D^K_s = KL_R(7) - KL_F(7)
+  greedy q=0.10  D^K +0.0230 +0.1180 -0.0792  mean +0.0206  tau 0.1775  -> NO EFFECT
+  greedy q=0.25  D^K +0.1798 +0.2507 +0.1725  mean +0.2010  tau 0.1775  -> WORKS
+  greedy q=0.50  D^K +0.7977 +0.9634 +1.0641  mean +0.9417  tau 0.1775  -> WORKS
+  topk   q=0.10  D^K +0.0087 +0.0411 +0.0019  mean +0.0172  tau 0.1111  -> NO EFFECT
+  topk   q=0.25  D^K +0.0244 +0.0040 -0.0053  mean +0.0077  tau 0.1111  -> NO EFFECT
+  topk   q=0.50  D^K -0.0939 -0.1034 +0.0107  mean -0.0622  tau 0.1111  -> NO EFFECT
+
+62.7(c) outcome label per chain (Distinct-2 fall > tau_D AND KL rise > tau_K vs own gen 0)
+   status at gen 7; first gen meeting the label (8 = never)
+  greedy q=0.10 F  s43:C/1  s44:C/1  s45:C/1
+  greedy q=0.10 R  s43:C/1  s44:C/1  s45:C/1
+  greedy q=0.25 F  s43:C/1  s44:C/1  s45:C/1
+  greedy q=0.25 R  s43:C/1  s44:C/1  s45:C/1
+  greedy q=0.50 F  s43:C/1  s44:C/1  s45:C/1
+  greedy q=0.50 R  s43:C/1  s44:C/1  s45:C/1
+  topk   q=0.10 F  s43:C/4  s44:-/1  s45:-/2
+  topk   q=0.10 R  s43:C/2  s44:-/1  s45:C/4
+  topk   q=0.25 F  s43:-/6  s44:-/1  s45:-/8
+  topk   q=0.25 R  s43:C/2  s44:C/6  s45:-/2
+  topk   q=0.50 F  s43:-/8  s44:-/8  s45:-/8
+  topk   q=0.50 R  s43:-/2  s44:-/8  s45:-/8
+
+62.7(d) dose-response across q (descriptive, not a tested outcome): mean D_s / mean D^K
+  greedy q=0.10: -0.0022 / +0.0206   q=0.25: -0.0015 / +0.2010   q=0.50: +0.0106 / +0.9417
+  topk   q=0.10: +0.0040 / +0.0172   q=0.25: +0.0077 / +0.0077   q=0.50: +0.0096 / -0.0622
+
+62.7(e) gen 7, F - R per seed (mean): OOD perplexity, MAUVE, benchmarks
+  greedy q=0.10  ood_c4 -4.645  ood_ccnews -2.496  ood_wiki -5.993  mauve -0.022  hellaswag_acc_norm -0.0015  lambada_acc +0.0173  lambada_ppl -3.6725
+  greedy q=0.25  ood_c4 -4.575  ood_ccnews -2.547  ood_wiki -4.515  mauve -0.038  hellaswag_acc_norm -0.0029  lambada_acc +0.0276  lambada_ppl -4.6124
+  greedy q=0.50  ood_c4 -4.372  ood_ccnews -3.066  ood_wiki -12.273  mauve -0.021  hellaswag_acc_norm -0.0019  lambada_acc +0.0595  lambada_ppl -6.0331
+  topk   q=0.10  ood_c4 -0.355  ood_ccnews -0.200  ood_wiki -0.309  mauve +0.011  hellaswag_acc_norm +0.0005  lambada_acc +0.0010  lambada_ppl +0.1684
+  topk   q=0.25  ood_c4 -0.607  ood_ccnews -0.272  ood_wiki -0.617  mauve +0.034  hellaswag_acc_norm +0.0001  lambada_acc -0.0016  lambada_ppl +0.3830
+  topk   q=0.50  ood_c4 -1.111  ood_ccnews -0.572  ood_wiki -1.031  mauve -0.030  hellaswag_acc_norm +0.0009  lambada_acc -0.0024  lambada_ppl +0.5165
+
+62.7(f) Delta_cal(g) = ln PPL - H, mean over seeds, gens 0..7
+   CIRCULARITY FLAG: S and Delta_cal share a construction; this is never evidence that the filter works.
+  greedy q=0.10 F  -0.075 +2.160 +2.506 +2.613 +2.664 +2.693 +2.711 +2.737
+  greedy q=0.10 R  -0.075 +2.186 +2.555 +2.666 +2.708 +2.747 +2.759 +2.795
+  greedy q=0.25 F  -0.075 +2.083 +2.433 +2.537 +2.577 +2.605 +2.625 +2.653
+  greedy q=0.25 R  -0.075 +2.138 +2.494 +2.590 +2.627 +2.649 +2.660 +2.671
+  greedy q=0.50 F  -0.075 +1.930 +2.267 +2.319 +2.291 +2.246 +2.160 +2.078
+  greedy q=0.50 R  -0.075 +2.030 +2.351 +2.416 +2.422 +2.408 +2.419 +2.415
+  topk   q=0.10 F  -0.075 +0.471 +0.636 +0.720 +0.775 +0.811 +0.837 +0.854
+  topk   q=0.10 R  -0.075 +0.488 +0.660 +0.749 +0.810 +0.848 +0.880 +0.900
+  topk   q=0.25 F  -0.075 +0.445 +0.596 +0.672 +0.716 +0.744 +0.765 +0.777
+  topk   q=0.25 R  -0.075 +0.483 +0.655 +0.743 +0.798 +0.838 +0.867 +0.888
+  topk   q=0.50 F  -0.075 +0.394 +0.521 +0.580 +0.613 +0.632 +0.640 +0.643
+  topk   q=0.50 R  -0.075 +0.462 +0.633 +0.718 +0.773 +0.808 +0.830 +0.848
+
+62.7(g) R(q) - U at gen 7 (the cost of removing a fraction q at random)
+   (§64.6: if the chains ran on a MIG slice, this comparison crosses hardware)
+  greedy q=0.10  dDistinct-2 -0.0031 +0.0014 +0.0015   dKL -0.0118 -0.0342 -0.0683
+  greedy q=0.25  dDistinct-2 -0.0063 -0.0042 -0.0003   dKL +0.1611 +0.0268 +0.1105
+  greedy q=0.50  dDistinct-2 -0.0055 +0.0007 -0.0054   dKL +0.0994 -0.0186 +0.1311
+  topk   q=0.10  dDistinct-2 -0.0013 +0.0057 -0.0018   dKL -0.0173 -0.0194 +0.0218
+  topk   q=0.25  dDistinct-2 +0.0011 +0.0010 +0.0036   dKL -0.0558 -0.0033 +0.0107
+  topk   q=0.50  dDistinct-2 +0.0097 +0.0111 +0.0029   dKL -0.1061 -0.0519 +0.0398
+
+RESULT OK  head d287ebb  script 0a884e9031d62baa58b33a125864776f
