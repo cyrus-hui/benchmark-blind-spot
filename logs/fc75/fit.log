@@ -1,0 +1,26 @@
+7.5 --fit: already-read arms only. Canaries: fit means 25/25, noise 3/3, registered tau 2/2.
+
+FIT SET (already read; exploratory). Condition means over seeds 43-45.
+     r arm              Delta(1)  Delta(2)  P-inc(1)      y_K      y_D      y_L
+     0 control_gpt2m      0.0613    0.0558    0.0712  +0.0276  -0.0043  +0.0733
+    25 mix25_topk         0.1319    0.1472    0.0216  +0.0174  -0.0024  +0.0810
+    50 mix50_topk         0.2531    0.2871    0.0318  +0.0603  -0.0011  +0.0894
+    75 mix75_topk         0.3939    0.4712    0.0507  +0.1000  +0.0030  +0.1098
+   100 pilot_gpt2m        0.5659    0.7400    0.0815  +0.2007  +0.0151  +0.2639
+  fitted Delta(1) range [0.0613, 0.5659]
+NOISE SCALE (controls only, 28 three-seed means): N_K 0.0497  N_D 0.0068  N_L 0.0048
+
+PREDICTIONS ON RECORD for C (inputs already read; the top-k damage does not exist yet).
+  arm               r  Delta(1) range  cand K / r-only  cand D / r-only  cand L / r-only
+  mix25_greedy     25    0.4998 in     +0.1620 / +0.0174   +0.0104 / -0.0024   +0.2047 / +0.0810
+  mix50_greedy     50    0.8090 OUT    +0.3431 / +0.0603   +0.0322 / -0.0011   +0.4819 / +0.0894
+  mix75_greedy     75    0.9577 OUT    +0.4302 / +0.1000   +0.0427 / +0.0030   +0.6152 / +0.1098
+  gpt2m_greedy    100    2.2846 OUT    +1.2074 / +0.2007   +0.1362 / +0.0151   +1.8046 / +0.2639
+
+ALREADY READ, y_L at C (perplexity is decoder-independent): observed against both maps.
+  mix25_greedy   observed +0.0772   candidate +0.2047 (error 0.1276)   r-only +0.0810 (error 0.0038)
+  mix50_greedy   observed +0.0888   candidate +0.4819 (error 0.3931)   r-only +0.0894 (error 0.0006)
+  mix75_greedy   observed +0.1461   candidate +0.6152 (error 0.4691)   r-only +0.1098 (error 0.0362)
+  gpt2m_greedy   observed +1.2524   candidate +1.8046 (error 0.5522)   r-only +0.2639 (error 0.9885)
+
+RESULT OK (fit only; no held-out arm was opened)

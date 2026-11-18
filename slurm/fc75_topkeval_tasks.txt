@@ -1,0 +1,13 @@
+gpt2m_greedy_topkeval 43 0
+mix25_greedy_topkeval 43 7
+mix25_greedy_topkeval 44 7
+mix25_greedy_topkeval 45 7
+mix50_greedy_topkeval 43 7
+mix50_greedy_topkeval 44 7
+mix50_greedy_topkeval 45 7
+mix75_greedy_topkeval 43 7
+mix75_greedy_topkeval 44 7
+mix75_greedy_topkeval 45 7
+gpt2m_greedy_topkeval 43 7
+gpt2m_greedy_topkeval 44 7
+gpt2m_greedy_topkeval 45 7

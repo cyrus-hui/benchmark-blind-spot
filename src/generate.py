@@ -21,7 +21,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from util import load_config, set_seed, gen_dir, read_jsonl, write_jsonl, device, offline_ok
 
 
-def build_gen_kwargs(cfg):
+def build_gen_kwargs(cfg, mode="eval"):
     d = cfg["decoding"]
     kw = dict(do_sample=True, temperature=d["temperature"],
               max_new_tokens=d["max_new_tokens"])
@@ -35,6 +35,11 @@ def build_gen_kwargs(cfg):
         kw = dict(do_sample=False, max_new_tokens=d["max_new_tokens"])
     else:
         raise ValueError(f"unknown decoding strategy {d['strategy']}")
+    ct = d.get("corpus_temperature")  # Phase 7.5: training-corpus generation only; absent = unchanged
+    if mode == "corpus" and ct is not None:
+        if d["strategy"] == "greedy":
+            raise ValueError("corpus_temperature is undefined under greedy decoding")
+        kw["temperature"] = float(ct)
     return kw
 
 
@@ -77,7 +82,9 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         gd / "model", local_files_only=True, torch_dtype=torch.bfloat16).to(device()).eval()
 
-    gen_kwargs = build_gen_kwargs(cfg)
+    gen_kwargs = build_gen_kwargs(cfg, args.mode)
+    print(f"decoding[{args.mode}] strategy={cfg['decoding']['strategy']} "
+          f"temperature={gen_kwargs.get('temperature')} top_k={gen_kwargs.get('top_k')}")
     pl = cfg["data"]["prompt_len"]
 
     if args.mode == "corpus":

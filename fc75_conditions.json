@@ -1,0 +1,86 @@
+{
+ "registered": "decisions.md sec. 73 (Nov 14 2026)",
+ "seeds": [
+  43,
+  44,
+  45
+ ],
+ "n_chunks": 18686,
+ "chains": [
+  {
+   "arm": "mix10_topk",
+   "type": "A",
+   "r": 10,
+   "corpus_temperature": null
+  },
+  {
+   "arm": "mix90_topk",
+   "type": "A",
+   "r": 90,
+   "corpus_temperature": null
+  },
+  {
+   "arm": "fc75_r25_t075",
+   "type": "B",
+   "r": 25,
+   "corpus_temperature": 0.75
+  },
+  {
+   "arm": "fc75_r25_t050",
+   "type": "B",
+   "r": 25,
+   "corpus_temperature": 0.5
+  },
+  {
+   "arm": "fc75_r50_t075",
+   "type": "B",
+   "r": 50,
+   "corpus_temperature": 0.75
+  },
+  {
+   "arm": "fc75_r50_t050",
+   "type": "B",
+   "r": 50,
+   "corpus_temperature": 0.5
+  },
+  {
+   "arm": "fc75_r100_t125",
+   "type": "P",
+   "r": 100,
+   "corpus_temperature": 1.25
+  }
+ ],
+ "gen0_corpus_roots": {
+  "0.75": "fc75_g0_t075",
+  "0.50": "fc75_g0_t050",
+  "1.25": "fc75_g0_t125"
+ },
+ "C": [
+  {
+   "arm": "mix25_greedy",
+   "r": 25,
+   "completions_arm": "mix25_greedy_topkeval"
+  },
+  {
+   "arm": "mix50_greedy",
+   "r": 50,
+   "completions_arm": "mix50_greedy_topkeval"
+  },
+  {
+   "arm": "mix75_greedy",
+   "r": 75,
+   "completions_arm": "mix75_greedy_topkeval"
+  },
+  {
+   "arm": "gpt2m_greedy",
+   "r": 100,
+   "completions_arm": "gpt2m_greedy_topkeval"
+  }
+ ],
+ "C_dropped": [],
+ "canary": {
+  "arm": "gpt2m_greedy_topkeval",
+  "seed": 43,
+  "gen": 0
+ }
+}
