@@ -1,0 +1,11 @@
+{
+ "verdict": "PASS",
+ "gate": "g0",
+ "checked": 9,
+ "expected": 9,
+ "fails": [],
+ "head": "5c1353d87861cddde11bdc5b44abb72aea11b0db",
+ "expect_keys": 9,
+ "script_md5": "df1c16f726f0880c42d8c94534464aef",
+ "time": "2026-11-18T17:26:19"
+}

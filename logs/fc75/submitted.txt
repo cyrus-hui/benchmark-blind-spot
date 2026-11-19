@@ -1,0 +1,149 @@
+9775855 fc75_g0 array 1-9 head=5c1353d
+9775870 fc75_topkeval array 1-13 head=5c1353d
+9776334 fc75_r50_t075 s43 g1 gres=gpu:1 time=01:00:00 head=5c1353d 
+9779774 mix10_topk s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779778 mix10_topk s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779774
+9779786 mix10_topk s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779778
+9779792 mix10_topk s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779786
+9779794 mix10_topk s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779792
+9779796 mix10_topk s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779794
+9779797 mix10_topk s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779796
+9779800 mix10_topk s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779803 mix10_topk s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779800
+9779805 mix10_topk s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779803
+9779808 mix10_topk s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779805
+9779810 mix10_topk s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779808
+9779812 mix10_topk s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779810
+9779814 mix10_topk s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779812
+9779816 mix10_topk s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779817 mix10_topk s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779816
+9779818 mix10_topk s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779817
+9779820 mix10_topk s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779818
+9779823 mix10_topk s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779820
+9779825 mix10_topk s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779823
+9779826 mix10_topk s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779825
+9779828 mix90_topk s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779830 mix90_topk s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779828
+9779832 mix90_topk s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779830
+9779833 mix90_topk s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779832
+9779834 mix90_topk s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779833
+9779835 mix90_topk s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779834
+9779836 mix90_topk s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779835
+9779837 mix90_topk s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779838 mix90_topk s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779837
+9779839 mix90_topk s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779838
+9779840 mix90_topk s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779839
+9779841 mix90_topk s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779840
+9779842 mix90_topk s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779841
+9779843 mix90_topk s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779842
+9779844 mix90_topk s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779845 mix90_topk s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779844
+9779846 mix90_topk s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779845
+9779847 mix90_topk s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779846
+9779849 mix90_topk s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779847
+9779850 mix90_topk s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779849
+9779851 mix90_topk s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779850
+9779852 fc75_r25_t075 s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779853 fc75_r25_t075 s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779852
+9779854 fc75_r25_t075 s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779853
+9779855 fc75_r25_t075 s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779854
+9779856 fc75_r25_t075 s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779855
+9779857 fc75_r25_t075 s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779856
+9779858 fc75_r25_t075 s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779857
+9779859 fc75_r25_t075 s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779860 fc75_r25_t075 s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779859
+9779861 fc75_r25_t075 s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779860
+9779862 fc75_r25_t075 s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779861
+9779863 fc75_r25_t075 s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779862
+9779864 fc75_r25_t075 s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779863
+9779865 fc75_r25_t075 s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779864
+9779866 fc75_r25_t075 s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779867 fc75_r25_t075 s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779866
+9779868 fc75_r25_t075 s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779867
+9779869 fc75_r25_t075 s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779868
+9779870 fc75_r25_t075 s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779869
+9779871 fc75_r25_t075 s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779870
+9779872 fc75_r25_t075 s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779871
+9779873 fc75_r25_t050 s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779874 fc75_r25_t050 s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779873
+9779875 fc75_r25_t050 s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779874
+9779876 fc75_r25_t050 s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779875
+9779877 fc75_r25_t050 s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779876
+9779878 fc75_r25_t050 s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779877
+9779879 fc75_r25_t050 s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779878
+9779880 fc75_r25_t050 s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779881 fc75_r25_t050 s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779880
+9779882 fc75_r25_t050 s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779881
+9779883 fc75_r25_t050 s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779882
+9779884 fc75_r25_t050 s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779883
+9779885 fc75_r25_t050 s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779884
+9779886 fc75_r25_t050 s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779885
+9779887 fc75_r25_t050 s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779889 fc75_r25_t050 s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779887
+9779890 fc75_r25_t050 s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779889
+9779891 fc75_r25_t050 s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779890
+9779892 fc75_r25_t050 s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779891
+9779893 fc75_r25_t050 s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779892
+9779894 fc75_r25_t050 s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779893
+9779895 fc75_r50_t075 s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779896 fc75_r50_t075 s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779895
+9779897 fc75_r50_t075 s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779896
+9779898 fc75_r50_t075 s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779897
+9779899 fc75_r50_t075 s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779898
+9779900 fc75_r50_t075 s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779899
+9779901 fc75_r50_t075 s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779902 fc75_r50_t075 s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779901
+9779903 fc75_r50_t075 s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779902
+9779905 fc75_r50_t075 s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779903
+9779906 fc75_r50_t075 s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779905
+9779907 fc75_r50_t075 s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779906
+9779908 fc75_r50_t075 s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779907
+9779909 fc75_r50_t075 s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779910 fc75_r50_t075 s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779909
+9779911 fc75_r50_t075 s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779910
+9779912 fc75_r50_t075 s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779911
+9779913 fc75_r50_t075 s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779912
+9779914 fc75_r50_t075 s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779913
+9779915 fc75_r50_t075 s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779914
+9779916 fc75_r50_t050 s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779917 fc75_r50_t050 s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779916
+9779918 fc75_r50_t050 s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779917
+9779919 fc75_r50_t050 s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779918
+9779920 fc75_r50_t050 s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779919
+9779921 fc75_r50_t050 s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779920
+9779922 fc75_r50_t050 s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779921
+9779923 fc75_r50_t050 s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779924 fc75_r50_t050 s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779923
+9779925 fc75_r50_t050 s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779924
+9779926 fc75_r50_t050 s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779925
+9779927 fc75_r50_t050 s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779926
+9779928 fc75_r50_t050 s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779927
+9779929 fc75_r50_t050 s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779928
+9779930 fc75_r50_t050 s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779932 fc75_r50_t050 s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779930
+9779933 fc75_r50_t050 s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779932
+9779934 fc75_r50_t050 s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779933
+9779935 fc75_r50_t050 s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779934
+9779936 fc75_r50_t050 s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779935
+9779937 fc75_r50_t050 s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779936
+9779938 fc75_r100_t125 s43 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779939 fc75_r100_t125 s43 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779938
+9779940 fc75_r100_t125 s43 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779939
+9779941 fc75_r100_t125 s43 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779940
+9779942 fc75_r100_t125 s43 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779941
+9779943 fc75_r100_t125 s43 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779942
+9779944 fc75_r100_t125 s43 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779943
+9779945 fc75_r100_t125 s44 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779946 fc75_r100_t125 s44 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779945
+9779947 fc75_r100_t125 s44 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779946
+9779948 fc75_r100_t125 s44 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779947
+9779949 fc75_r100_t125 s44 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779948
+9779950 fc75_r100_t125 s44 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779949
+9779951 fc75_r100_t125 s44 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779950
+9779952 fc75_r100_t125 s45 g1 gres=gpu:1 time=00:35:00 head=5c1353d 
+9779953 fc75_r100_t125 s45 g2 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779952
+9779954 fc75_r100_t125 s45 g3 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779953
+9779955 fc75_r100_t125 s45 g4 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779954
+9779956 fc75_r100_t125 s45 g5 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779955
+9779957 fc75_r100_t125 s45 g6 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779956
+9779958 fc75_r100_t125 s45 g7 gres=gpu:1 time=00:35:00 head=5c1353d afterok:9779957
